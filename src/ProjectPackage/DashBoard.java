@@ -5,6 +5,7 @@
 package ProjectPackage;
 
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Image;
 import java.io.File;
@@ -2971,14 +2972,19 @@ public class DashBoard extends javax.swing.JFrame {
                     String path = "C:\\";
                     com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
                     try{
-                        PdfWriter.getInstance(doc, new FileOutputStream(path + "" + receiptId + ".pdf"));
+                        PdfWriter.getInstance(doc, new FileOutputStream(path + "Receipt_" + receiptId + ".pdf"));
                         doc.open();
                         Paragraph p1 = new Paragraph("                        The Golden Oasis Hotel Guest Receipt\n");
                         doc.add(p1);
                         Paragraph p2 = new Paragraph("*****************************************************************************************");
                         doc.add(p2);
-                        Paragraph p3 = new Paragraph("Receipt ID:");
+                        Paragraph p3 = new Paragraph("Receipt ID: " + receiptId);
                         doc.add(p3);
+                        Paragraph p4 = new Paragraph("\n");
+                        doc.add(p4);
+                        Paragraph p5 = new Paragraph("");
+                        doc.add(p5);
+                        PdfPTable table = new PdfPTable(7);
                     }
                     catch(Exception e){
                         e.printStackTrace();
