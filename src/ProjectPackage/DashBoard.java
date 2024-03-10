@@ -5,6 +5,8 @@
 package ProjectPackage;
 
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Image;
@@ -2933,71 +2935,163 @@ public class DashBoard extends javax.swing.JFrame {
         int index = table_rReservedData.getSelectedRow();
         String rReservedId = model.getValueAt(index, 0).toString();
         String roomId = model.getValueAt(index, 2).toString();
-        int result = JOptionPane.showConfirmDialog(null, "Confirm Check Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
-        if(result == JOptionPane.YES_OPTION){
-            try{
-                Connection con = connect();
-                String sql = "update r_reserved_data set check_out_date = ?, payment_status = ? where r_reserved_id = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, txt_checkOutDate.getText());
-                ps.setString(2, "Full Paid");
-                ps.setString(3, rReservedId);
-                ps.executeUpdate();
-                
-                String sql4 = "update room set status = 'Available' where room_id = ?";
-                PreparedStatement ps4 = con.prepareStatement(sql4);
-                ps4.setString(1, roomId);
-                ps4.executeUpdate();
-                
-                String receiptId = generateReceiptID();
-                String sql2 = "insert into receipts (receipt_id, cus_id, r_reserved_id, p_reserved_id, period, cost, payment_status) values (?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement ps2 = con.prepareStatement(sql2);
-                ps2.setString(1, receiptId);
-                ps2.setString(2, txt_cusIDcheckOut.getText());
-                ps2.setString(3, rReservedId);
-                ps2.setString(4, null);
-                ps2.setInt(5, getDifferenceInDays(txt_checkOutDate.getText(), txt_checkInDate.getText()));
-                ps2.setFloat(6, Float.parseFloat(txt_totalCost.getText()));
-                ps2.setString(7, "Full Paid");
-                ps2.execute();
-                
-                String sql3 = "insert into finance (receipt_id, Amount) values (?, ?)";
-                PreparedStatement ps3 = con.prepareStatement(sql3);
-                ps3.setString(1, receiptId);
-                ps3.setFloat(2, Float.parseFloat(txt_totalCost.getText()));
-                ps3.execute();
-                
-                int result2 = JOptionPane.showConfirmDialog(null, "Checked Out Successfully.\nDo you want to print the voucher?", "Operation Successful", JOptionPane.YES_NO_OPTION);
-                if(result2 == JOptionPane.YES_OPTION){
-                    String path = "C:\\";
-                    com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
-                    try{
-                        PdfWriter.getInstance(doc, new FileOutputStream(path + "Receipt_" + receiptId + ".pdf"));
-                        doc.open();
-                        Paragraph p1 = new Paragraph("                        The Golden Oasis Hotel Guest Receipt\n");
-                        doc.add(p1);
-                        Paragraph p2 = new Paragraph("*****************************************************************************************");
-                        doc.add(p2);
-                        Paragraph p3 = new Paragraph("Receipt ID: " + receiptId);
-                        doc.add(p3);
-                        Paragraph p4 = new Paragraph("\n");
-                        doc.add(p4);
-                        Paragraph p5 = new Paragraph("");
-                        doc.add(p5);
-                        PdfPTable table = new PdfPTable(7);
+        String checkOutDate = model.getValueAt(index, 5) != null ? model.getValueAt(index, 5).toString() : null;
+        if(checkOutDate == null){
+            int result = JOptionPane.showConfirmDialog(null, "Confirm Check Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if(result == JOptionPane.YES_OPTION){
+                try{
+                    Connection con = connect();
+                    String sql = "update r_reserved_data set check_out_date = ?, payment_status = ? where r_reserved_id = ?";
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    ps.setString(1, txt_checkOutDate.getText());
+                    ps.setString(2, "Full Paid");
+                    ps.setString(3, rReservedId);
+                    ps.executeUpdate();
+
+                    String sql4 = "update room set status = 'Available' where room_id = ?";
+                    PreparedStatement ps4 = con.prepareStatement(sql4);
+                    ps4.setString(1, roomId);
+                    ps4.executeUpdate();
+
+                    String receiptId = generateReceiptID();
+                    String sql2 = "insert into receipts (receipt_id, cus_id, r_reserved_id, p_reserved_id, period, cost, payment_status) values (?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement ps2 = con.prepareStatement(sql2);
+                    ps2.setString(1, receiptId);
+                    ps2.setString(2, txt_cusIDcheckOut.getText());
+                    ps2.setString(3, rReservedId);
+                    ps2.setString(4, null);
+                    ps2.setInt(5, getDifferenceInDays(txt_checkOutDate.getText(), txt_checkInDate.getText()));
+                    ps2.setFloat(6, Float.parseFloat(txt_totalCost.getText()));
+                    ps2.setString(7, "Full Paid");
+                    ps2.execute();
+
+                    String sql3 = "insert into finance (receipt_id, Amount) values (?, ?)";
+                    PreparedStatement ps3 = con.prepareStatement(sql3);
+                    ps3.setString(1, receiptId);
+                    ps3.setFloat(2, Float.parseFloat(txt_totalCost.getText()));
+                    ps3.execute();
+
+                    int result2 = JOptionPane.showConfirmDialog(null, "Checked Out Successfully.\nDo you want to print the voucher?", "Operation Successful", JOptionPane.YES_NO_OPTION);
+                    if(result2 == JOptionPane.YES_OPTION){
+                        String path = "C:\\";
+                        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+                        try{
+                            String cusID = null, cusName = null, cusNRC = null, cusPass = null, cusCon = null;
+                            String sql5 = "select cus_id from receipts where receipt_id = ?";
+                            PreparedStatement ps5 = con.prepareStatement(sql5);
+                            ps5.setString(1, receiptId);
+                            ResultSet rs5 = ps5.executeQuery();
+                            while(rs5.next()){
+                                cusID = rs5.getString("cus_id");
+                            }
+
+                            if(cusID != null){
+                                String sql6 = "select cus_name, cus_nrc, cus_passport, cus_contact from customer_info where cus_id  = ?";
+                                PreparedStatement ps6 = con.prepareStatement(sql6);
+                                ps6.setString(1, cusID);
+                                ResultSet rs6 = ps6.executeQuery();
+                                while(rs6.next()){
+                                    cusName = rs6.getString("cus_name");
+                                    cusNRC = rs6.getString("cus_nrc");
+                                    cusPass = rs6.getString("cus_passport");
+                                    cusCon = rs6.getString("cus_contact");
+                                }
+                            }
+                            
+                            String room_id = null, check_in_date = null, check_out_date = null;
+                            String sql7 = "select room_id, check_in_date, check_out_date from r_reserved_data where r_reserved_id = ?";
+                            PreparedStatement ps7 = con.prepareStatement(sql7);
+                            ps7.setString(1, rReservedId);
+                            ResultSet rs7 = ps7.executeQuery();
+                            while(rs7.next()){
+                                room_id = rs7.getString("room_id");
+                                check_in_date = rs7.getString("check_in_date");
+                                check_out_date = rs7.getString("check_out_date");
+                            }
+                            
+                            String room_no = null, room_type = null; float room_price = 0;
+                            String sql8 = "select room_no, room_type, room_price from room where room_id = ?";
+                            PreparedStatement ps8 = con.prepareStatement(sql8);
+                            ps8.setString(1, room_id);
+                            ResultSet rs8 = ps8.executeQuery();
+                            while(rs8.next()){
+                                room_no = rs8.getString("room_no");
+                                room_type = rs8.getString("room_type");
+                                room_price = rs8.getFloat("room_price");
+                            }
+                            
+                            int days_of_stay = 0;
+                            String sql9 = "select period from receipts where receipt_id = ?";
+                            PreparedStatement ps9 = con.prepareStatement(sql9);
+                            ps9.setString(1, receiptId);
+                            ResultSet rs9 = ps9.executeQuery();
+                            while(rs9.next()){
+                                days_of_stay = rs9.getInt("period");
+                            }
+                            
+                            List<Object[]> dataArray = new ArrayList<>();
+                            dataArray.add(new Object[]{room_no, room_type, check_in_date, check_out_date, days_of_stay, room_price, (days_of_stay * room_price)});
+
+                            PdfWriter.getInstance(doc, new FileOutputStream(path + "Receipt_" + receiptId + ".pdf"));
+                            doc.open();
+                            Paragraph p1 = new Paragraph("				The Golden Oasis Hotel Guest Receipt\n");
+                            doc.add(p1);
+                            Paragraph p2 = new Paragraph("**********************************************************************************************************");
+                            doc.add(p2);
+                            Paragraph p3 = new Paragraph("Receipt ID: " + receiptId);
+                            doc.add(p3);
+                            Paragraph p4 = new Paragraph("\n");
+                            doc.add(p4);
+                            Paragraph p5 = new Paragraph("**********************************************************************************************************");
+                            doc.add(p5);
+                            Paragraph p6 = new Paragraph("Guest Details\nGuest ID: " + cusID + "\nGuest Name: " + cusName + "\nGuest NRC: " + cusNRC + "\nGuest Passport: " + cusPass + "\nGuest Contact: " + cusCon + "\n\n");
+                            doc.add(p6);
+                            PdfPTable table = new PdfPTable(7);
+                            String[] headers = {"Room No", "Room Type", "Check In Date", "Check Out Date", "Days of Stay", "Cost Per Day", "Amount"};
+                            for (String header : headers) {
+                                PdfPCell cell = new PdfPCell(new Phrase(header));
+                                table.addCell(cell);
+                            }
+
+                            for (Object[] rowData : dataArray) {
+                                for (Object data : rowData) {
+                                    PdfPCell cell = new PdfPCell(new Phrase(data.toString()));
+                                    table.addCell(cell);
+                                }
+                            }
+                            
+                            doc.add(table);
+                            doc.add(p2);
+                            Paragraph p7 = new Paragraph("Thanks for visiting. Please Come Again in very near future!");
+                            doc.add(p7);
+                            doc.close();
+                            
+                            if(new File("C:\\" + "Receipt_" + receiptId + ".pdf").exists()){
+                                Process p = Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler C:\\Receipt_" + receiptId + ".pdf");
+                            }
+                            else{
+                                System.out.println("File does not exist");
+                            }
+                            
+                            clearCheckOutFields();
+                            txt_roomNoSearch.setText("");
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
                     }
-                    catch(Exception e){
-                        e.printStackTrace();
+                    else{
+                        clearCheckOutFields();
+                        txt_roomNoSearch.setText("");
                     }
                 }
-                else{
-                    clearCheckOutFields();
-                    txt_roomNoSearch.setText("");
+                catch(Exception e){
+                    e.printStackTrace();
                 }
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
+            }       
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "This room is already Checked Out", "Checked Out Room", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btn_checkOutActionPerformed
 
