@@ -34,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -300,6 +301,28 @@ public class DashBoard extends javax.swing.JFrame {
         return 0;
     }
     
+    public int getCurrentMaxStaffID(){
+        try{
+            Connection con = connect();
+            String sql = "SELECT MAX(staff_id) AS max_id FROM staff";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            try{
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()){
+                    String maxID = rs.getString("max_id");
+                    return maxID != null ? extractNumericPart(maxID) : 0;
+                }
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
     private static int extractNumericPart(String id) {
         try {
             return Integer.parseInt(id.substring(1));
@@ -346,6 +369,12 @@ public class DashBoard extends javax.swing.JFrame {
         int currentMaxId = getCurrentMaxReceiptID();
         int counter = currentMaxId + 1;
         return String.format("RE%06d", counter);
+    }
+    
+    public String generateStaffID(){
+        int currentMaxId = getCurrentMaxStaffID();
+        int counter = currentMaxId + 1;
+        return String.format("S%06d", counter);
     }
     
     public boolean emptyValidateRoom(){
@@ -448,6 +477,20 @@ public class DashBoard extends javax.swing.JFrame {
         txt_roomPricecheckOut.setText("");
         txt_totalCost.setText("");
         txt_paymentStatus.setText("");
+    }
+    
+    public void clearStaffFields(){
+        txt_staffid.setText(generateStaffID());
+        txt_staffName.setText("");
+        txt_staffAge.setText("");
+        rbtn_staffMale.setSelected(false);
+        rbtn_staffFemale.setSelected(false);
+        txt_staffNRC.setText("");
+        txt_staffCon.setText("");
+        txt_staffAddress.setText("");
+        rbtn_manager.setSelected(false);
+        rbtn_receptionist.setSelected(false);
+        txt_staffPassword.setText("");
     }
     
     public static int getDifferenceInDays(String date1, String date2) {
@@ -714,6 +757,7 @@ public class DashBoard extends javax.swing.JFrame {
         rbtn_staffFemale = new javax.swing.JRadioButton();
         rbtn_manager = new javax.swing.JRadioButton();
         rbtn_receptionist = new javax.swing.JRadioButton();
+        btn_generateStaffID = new javax.swing.JButton();
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
@@ -2320,6 +2364,11 @@ public class DashBoard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_staffAcc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_staffAccMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(table_staffAcc);
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2391,6 +2440,11 @@ public class DashBoard extends javax.swing.JFrame {
         btn_addStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_addStaff.setForeground(new java.awt.Color(255, 255, 255));
         btn_addStaff.setText("Add New Staff");
+        btn_addStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addStaffActionPerformed(evt);
+            }
+        });
 
         btn_updateStaff.setBackground(new java.awt.Color(0, 102, 0));
         btn_updateStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2421,6 +2475,16 @@ public class DashBoard extends javax.swing.JFrame {
         rbtn_receptionist.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rbtn_receptionist.setForeground(new java.awt.Color(0, 0, 0));
         rbtn_receptionist.setText("Receptionist");
+
+        btn_generateStaffID.setBackground(new java.awt.Color(255, 255, 255));
+        btn_generateStaffID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_generateStaffID.setForeground(new java.awt.Color(0, 0, 0));
+        btn_generateStaffID.setText("Generate Staff ID");
+        btn_generateStaffID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generateStaffIDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_manageStaffaccLayout = new javax.swing.GroupLayout(panel_manageStaffacc);
         panel_manageStaffacc.setLayout(panel_manageStaffaccLayout);
@@ -2465,7 +2529,9 @@ public class DashBoard extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(rbtn_receptionist))))
                     .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
-                        .addGap(255, 255, 255)
+                        .addGap(169, 169, 169)
+                        .addComponent(btn_generateStaffID)
+                        .addGap(39, 39, 39)
                         .addComponent(btn_addStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2529,7 +2595,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_addStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_generateStaffID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
 
@@ -3412,11 +3479,96 @@ public class DashBoard extends javax.swing.JFrame {
         if(role == 0){
             TabbedPane.setSelectedIndex(6);
             DisplayStaffInfo();
+            clearStaffFields();
         }
         else{
             JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_lbl_manageStaffaccMouseClicked
+
+    private void table_staffAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_staffAccMouseClicked
+        // TODO add your handling code here:
+        TableModel model = table_staffAcc.getModel();
+        int index = table_staffAcc.getSelectedRow();
+        txt_staffID.setText(model.getValueAt(index, 0).toString());
+        txt_staffName.setText(model.getValueAt(index, 1).toString());
+        txt_staffAge.setText(model.getValueAt(index, 2).toString());
+        int gender = (int) model.getValueAt(index, 3);
+        if(gender == 0){
+            rbtn_staffMale.setSelected(true);
+        }
+        else{
+            rbtn_staffFemale.setSelected(true);
+        }
+        int role = (int) model.getValueAt(index, 7);
+        if(role == 0){
+            rbtn_manager.setSelected(true);
+        }
+        else{
+            rbtn_receptionist.setSelected(true);
+        }
+        txt_staffNRC.setText(model.getValueAt(index, 4).toString());
+        txt_staffCon.setText(model.getValueAt(index, 5).toString());
+        txt_staffAddress.setText(model.getValueAt(index, 6).toString());
+        txt_staffPassword.setText(model.getValueAt(index, 8).toString());
+    }//GEN-LAST:event_table_staffAccMouseClicked
+
+    private void btn_generateStaffIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generateStaffIDActionPerformed
+        // TODO add your handling code here:
+        clearStaffFields();
+        txt_staffID.setText(generateStaffID());
+    }//GEN-LAST:event_btn_generateStaffIDActionPerformed
+
+    private void btn_addStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addStaffActionPerformed
+        // TODO add your handling code here:
+        String staffid = txt_staffID.getText();
+        String staffname = txt_staffName.getText();
+        int staffage = Integer.parseInt(txt_staffAge.getText());
+        int gender = rbtn_staffMale.isSelected() ? 0 : (rbtn_staffFemale.isSelected() ? 1 : -1);
+        String staffnrc = txt_staffNRC.getText();
+        String staffcon = txt_staffCon.getText();
+        String staffaddress = txt_staffAddress.getText();
+        int role = rbtn_manager.isSelected() ? 0 : (rbtn_receptionist.isSelected() ? 1 : -1);
+        String staffpassword = txt_staffPassword.getText();
+        if(!txt_staffName.getText().isEmpty() && !txt_staffAge.getText().isEmpty() && !txt_staffNRC.getText().isEmpty() && !txt_staffCon.getText().isEmpty() && !txt_staffPassword.getText().isEmpty()){
+            if(gender == -1){
+                JOptionPane.showMessageDialog(null, "Staff's Gender needs to be provided", "Empty Field", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                if(role == -1){
+                    JOptionPane.showMessageDialog(null, "Staff's Role needs to be provided", "Empty Field", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                    try{
+                        Connection con = connect();
+                        String sql = "insert into staff(staff_id, staff_name, staff_age, staff_gender, staff_nrc, staff_contact, staff_address, staff_role) values (?, ?, ?, ?, ?, ?, ?, ?)";
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ps.setString(1, staffid);
+                        ps.setString(2, staffname);
+                        ps.setInt(3, staffage);
+                        ps.setInt(4, gender);
+                        ps.setString(5, staffnrc);
+                        ps.setString(6, staffcon);
+                        ps.setString(7, staffaddress);
+                        ps.setInt(8, role);
+                        ps.execute();
+                        
+                        String sql1 = "insert into system_admin (staff_id, staff_role, password) values (?, ?, ?)";
+                        PreparedStatement ps1 = con.prepareStatement(sql1);
+                        ps1.setString(1, staffid);
+                        ps1.setInt(2, role);
+                        ps1.setString(3, staffpassword);
+                        ps1.execute();
+                        
+                        JOptionPane.showMessageDialog(null, "Staff Added Successfully", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btn_addStaffActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3468,6 +3620,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btn_clearBookingFields;
     private javax.swing.JButton btn_generateID;
     private javax.swing.JButton btn_generatePackageID;
+    private javax.swing.JButton btn_generateStaffID;
     private javax.swing.JButton btn_removePackage;
     private javax.swing.JButton btn_removeRoom;
     private javax.swing.JButton btn_removeStaff;
