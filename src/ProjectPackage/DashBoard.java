@@ -123,6 +123,19 @@ public class DashBoard extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    public void DisplayStaffInfo(){
+        try{
+            Connection con = connect();
+            String sql = "select s.*, sa.password from staff s INNER JOIN system_admin sa ON s.staff_id = sa.staff_id";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            table_staffAcc.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public String getExtension(String imagePath){
         var array = imagePath.split("\\.");
@@ -513,6 +526,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         txt_bookingID3 = new javax.swing.JTextField();
         cusGenderRbtnGroup = new javax.swing.ButtonGroup();
+        staffGenderRbtnGroup = new javax.swing.ButtonGroup();
+        staffRoleRbtnGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -673,6 +688,32 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel54 = new javax.swing.JLabel();
         txt_roomNoSearch = new javax.swing.JTextField();
         btn_searchRoomNo = new javax.swing.JButton();
+        panel_manageStaffacc = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        table_staffAcc = new javax.swing.JTable();
+        jLabel55 = new javax.swing.JLabel();
+        txt_staffID = new javax.swing.JTextField();
+        jLabel56 = new javax.swing.JLabel();
+        txt_staffName = new javax.swing.JTextField();
+        jLabel57 = new javax.swing.JLabel();
+        txt_staffAge = new javax.swing.JTextField();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        txt_staffNRC = new javax.swing.JTextField();
+        jLabel60 = new javax.swing.JLabel();
+        txt_staffCon = new javax.swing.JTextField();
+        jLabel61 = new javax.swing.JLabel();
+        txt_staffAddress = new javax.swing.JTextField();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        txt_staffPassword = new javax.swing.JTextField();
+        btn_addStaff = new javax.swing.JButton();
+        btn_updateStaff = new javax.swing.JButton();
+        btn_removeStaff = new javax.swing.JButton();
+        rbtn_staffMale = new javax.swing.JRadioButton();
+        rbtn_staffFemale = new javax.swing.JRadioButton();
+        rbtn_manager = new javax.swing.JRadioButton();
+        rbtn_receptionist = new javax.swing.JRadioButton();
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
@@ -835,6 +876,11 @@ public class DashBoard extends javax.swing.JFrame {
         lbl_manageStaffacc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_manageStaffacc.setText("Manage Staff Accounts");
         lbl_manageStaffacc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_manageStaffacc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_manageStaffaccMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -2263,6 +2309,232 @@ public class DashBoard extends javax.swing.JFrame {
 
         TabbedPane.addTab("tab6", panel_guestCheckOut);
 
+        panel_manageStaffacc.setBackground(new java.awt.Color(255, 255, 255));
+        panel_manageStaffacc.setForeground(new java.awt.Color(0, 0, 0));
+
+        table_staffAcc.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(table_staffAcc);
+
+        jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel55.setText("Staff ID:");
+
+        txt_staffID.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffID.setForeground(new java.awt.Color(0, 0, 0));
+        txt_staffID.setEnabled(false);
+
+        jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel56.setText("Staff Name:");
+
+        txt_staffName.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffName.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel57.setText("Staff Age:");
+
+        txt_staffAge.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffAge.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffAge.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel58.setText("Staff Gender:");
+
+        jLabel59.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel59.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel59.setText("Staff NRC:");
+
+        txt_staffNRC.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffNRC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffNRC.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel60.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel60.setText("Staff Contact:");
+
+        txt_staffCon.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffCon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffCon.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel61.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel61.setText("Staff Address:");
+
+        txt_staffAddress.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffAddress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffAddress.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel62.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel62.setText("Staff Role:");
+
+        jLabel63.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel63.setText("Password:");
+
+        txt_staffPassword.setBackground(new java.awt.Color(255, 255, 255));
+        txt_staffPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_staffPassword.setForeground(new java.awt.Color(0, 0, 0));
+
+        btn_addStaff.setBackground(new java.awt.Color(0, 153, 153));
+        btn_addStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_addStaff.setForeground(new java.awt.Color(255, 255, 255));
+        btn_addStaff.setText("Add New Staff");
+
+        btn_updateStaff.setBackground(new java.awt.Color(0, 102, 0));
+        btn_updateStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_updateStaff.setForeground(new java.awt.Color(255, 255, 255));
+        btn_updateStaff.setText("Update Staff");
+
+        btn_removeStaff.setBackground(new java.awt.Color(153, 51, 0));
+        btn_removeStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_removeStaff.setForeground(new java.awt.Color(255, 255, 255));
+        btn_removeStaff.setText("Remove Staff");
+
+        staffGenderRbtnGroup.add(rbtn_staffMale);
+        rbtn_staffMale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtn_staffMale.setForeground(new java.awt.Color(0, 0, 0));
+        rbtn_staffMale.setText("Male");
+
+        staffGenderRbtnGroup.add(rbtn_staffFemale);
+        rbtn_staffFemale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtn_staffFemale.setForeground(new java.awt.Color(0, 0, 0));
+        rbtn_staffFemale.setText("Female");
+
+        staffRoleRbtnGroup.add(rbtn_manager);
+        rbtn_manager.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtn_manager.setForeground(new java.awt.Color(0, 0, 0));
+        rbtn_manager.setText("Manager");
+
+        staffRoleRbtnGroup.add(rbtn_receptionist);
+        rbtn_receptionist.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtn_receptionist.setForeground(new java.awt.Color(0, 0, 0));
+        rbtn_receptionist.setText("Receptionist");
+
+        javax.swing.GroupLayout panel_manageStaffaccLayout = new javax.swing.GroupLayout(panel_manageStaffacc);
+        panel_manageStaffacc.setLayout(panel_manageStaffaccLayout);
+        panel_manageStaffaccLayout.setHorizontalGroup(
+            panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_staffID, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_staffName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_staffAge, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54)
+                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_staffNRC, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_staffCon, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                                .addComponent(rbtn_staffMale, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtn_staffFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)))
+                        .addGap(61, 61, 61)
+                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_staffPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_staffAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                                .addComponent(rbtn_manager, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtn_receptionist))))
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addGap(255, 255, 255)
+                        .addComponent(btn_addStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        panel_manageStaffaccLayout.setVerticalGroup(
+            panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                            .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txt_staffID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageStaffaccLayout.createSequentialGroup()
+                            .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txt_staffAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbtn_staffMale)
+                            .addComponent(rbtn_staffFemale))
+                        .addGap(5, 5, 5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_staffName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_staffNRC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rbtn_manager)
+                                .addComponent(rbtn_receptionist))))
+                    .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_staffAge, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_staffCon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
+                        .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_staffPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(64, 64, 64)
+                .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_addStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(92, Short.MAX_VALUE))
+        );
+
+        TabbedPane.addTab("tab7", panel_manageStaffacc);
+
         jPanel1.add(TabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, -34, -1, 810));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2970,9 +3242,14 @@ public class DashBoard extends javax.swing.JFrame {
                     ps3.setString(1, receiptId);
                     ps3.setFloat(2, Float.parseFloat(txt_totalCost.getText()));
                     ps3.execute();
+                    
+                    clearCheckOutFields();
+                    txt_roomNoSearch.setText("");
 
                     int result2 = JOptionPane.showConfirmDialog(null, "Checked Out Successfully.\nDo you want to print the voucher?", "Operation Successful", JOptionPane.YES_NO_OPTION);
                     if(result2 == JOptionPane.YES_OPTION){
+                        clearCheckOutFields();
+                        txt_roomNoSearch.setText("");
                         String path = "C:\\";
                         com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
                         try{
@@ -2998,54 +3275,40 @@ public class DashBoard extends javax.swing.JFrame {
                                 }
                             }
                             
-                            String room_id = null, check_in_date = null, check_out_date = null;
-                            String sql7 = "select room_id, check_in_date, check_out_date from r_reserved_data where r_reserved_id = ?";
+                            String sql7 = "SELECT r.room_no, r.room_type, rr.check_in_date, rr.check_out_date, r.room_price, rp.period " +
+                                            "FROM receipts rp " +
+                                            "JOIN r_reserved_data rr ON rp.r_reserved_id = rr.r_reserved_id " +
+                                            "JOIN room r ON rr.room_id = r.room_id " +
+                                            "WHERE rp.receipt_id = ?";
                             PreparedStatement ps7 = con.prepareStatement(sql7);
-                            ps7.setString(1, rReservedId);
+                            ps7.setString(1, receiptId);
                             ResultSet rs7 = ps7.executeQuery();
-                            while(rs7.next()){
-                                room_id = rs7.getString("room_id");
-                                check_in_date = rs7.getString("check_in_date");
-                                check_out_date = rs7.getString("check_out_date");
-                            }
-                            
-                            String room_no = null, room_type = null; float room_price = 0;
-                            String sql8 = "select room_no, room_type, room_price from room where room_id = ?";
-                            PreparedStatement ps8 = con.prepareStatement(sql8);
-                            ps8.setString(1, room_id);
-                            ResultSet rs8 = ps8.executeQuery();
-                            while(rs8.next()){
-                                room_no = rs8.getString("room_no");
-                                room_type = rs8.getString("room_type");
-                                room_price = rs8.getFloat("room_price");
-                            }
-                            
-                            int days_of_stay = 0;
-                            String sql9 = "select period from receipts where receipt_id = ?";
-                            PreparedStatement ps9 = con.prepareStatement(sql9);
-                            ps9.setString(1, receiptId);
-                            ResultSet rs9 = ps9.executeQuery();
-                            while(rs9.next()){
-                                days_of_stay = rs9.getInt("period");
-                            }
-                            
                             List<Object[]> dataArray = new ArrayList<>();
-                            dataArray.add(new Object[]{room_no, room_type, check_in_date, check_out_date, days_of_stay, room_price, (days_of_stay * room_price)});
+                            while (rs7.next()) {
+                                String room_no = rs7.getString("room_no");
+                                String room_type = rs7.getString("room_type");
+                                String check_in_date = rs7.getString("check_in_date");
+                                String check_out_date = rs7.getString("check_out_date");
+                                float room_price = rs7.getFloat("room_price");
+                                int days_of_stay = rs7.getInt("period");
+
+                                Object[] rowData = {room_no, room_type, check_in_date, check_out_date, days_of_stay, room_price, (days_of_stay * room_price)};
+                                dataArray.add(rowData);
+                            }
 
                             PdfWriter.getInstance(doc, new FileOutputStream(path + "Receipt_" + receiptId + ".pdf"));
                             doc.open();
-                            Paragraph p1 = new Paragraph("				The Golden Oasis Hotel Guest Receipt\n");
+                            Paragraph p1 = new Paragraph("                                  The Golden Oasis Hotel Guest Receipt\n");
                             doc.add(p1);
                             Paragraph p2 = new Paragraph("**********************************************************************************************************");
                             doc.add(p2);
                             Paragraph p3 = new Paragraph("Receipt ID: " + receiptId);
                             doc.add(p3);
-                            Paragraph p4 = new Paragraph("\n");
-                            doc.add(p4);
                             Paragraph p5 = new Paragraph("**********************************************************************************************************");
                             doc.add(p5);
                             Paragraph p6 = new Paragraph("Guest Details\nGuest ID: " + cusID + "\nGuest Name: " + cusName + "\nGuest NRC: " + cusNRC + "\nGuest Passport: " + cusPass + "\nGuest Contact: " + cusCon + "\n\n");
                             doc.add(p6);
+                            doc.add(p2);
                             PdfPTable table = new PdfPTable(7);
                             String[] headers = {"Room No", "Room Type", "Check In Date", "Check Out Date", "Days of Stay", "Cost Per Day", "Amount"};
                             for (String header : headers) {
@@ -3060,7 +3323,17 @@ public class DashBoard extends javax.swing.JFrame {
                                 }
                             }
                             
+                            float totalCost = 0;
+                            for(Object[] row : dataArray){
+                                totalCost += (float)row[6];
+                            }
+                            
+                            PdfPCell TCcell = new PdfPCell(new Phrase("Total Cost: " + totalCost));
+                            TCcell.setColspan(6);
+                            table.addCell(TCcell);
+                            table.addCell("");
                             doc.add(table);
+                            
                             doc.add(p2);
                             Paragraph p7 = new Paragraph("Thanks for visiting. Please Come Again in very near future!");
                             doc.add(p7);
@@ -3071,10 +3344,7 @@ public class DashBoard extends javax.swing.JFrame {
                             }
                             else{
                                 System.out.println("File does not exist");
-                            }
-                            
-                            clearCheckOutFields();
-                            txt_roomNoSearch.setText("");
+                            }    
                         }
                         catch(Exception e){
                             e.printStackTrace();
@@ -3137,6 +3407,17 @@ public class DashBoard extends javax.swing.JFrame {
         selectedRoomIDs.add(txt_roomIdCheckIn.getText());
     }//GEN-LAST:event_btn_addToListActionPerformed
 
+    private void lbl_manageStaffaccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageStaffaccMouseClicked
+        // TODO add your handling code here:
+        if(role == 0){
+            TabbedPane.setSelectedIndex(6);
+            DisplayStaffInfo();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_lbl_manageStaffaccMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -3176,6 +3457,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JButton btn_addPackage;
     private javax.swing.JButton btn_addRoom;
+    private javax.swing.JButton btn_addStaff;
     private javax.swing.JButton btn_addToList;
     private javax.swing.JButton btn_allocateRoom;
     private javax.swing.JButton btn_cancelBooking;
@@ -3188,10 +3470,12 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btn_generatePackageID;
     private javax.swing.JButton btn_removePackage;
     private javax.swing.JButton btn_removeRoom;
+    private javax.swing.JButton btn_removeStaff;
     private javax.swing.JButton btn_searchBooking;
     private javax.swing.JButton btn_searchRoomNo;
     private javax.swing.JButton btn_updatePackage;
     private javax.swing.JButton btn_updateRoom;
+    private javax.swing.JButton btn_updateStaff;
     private javax.swing.JComboBox<String> cbox_roomBeds;
     private javax.swing.JComboBox<String> cbox_roomDecs;
     private javax.swing.JComboBox<String> cbox_roomNos;
@@ -3247,7 +3531,16 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -3265,6 +3558,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_guestCheckin;
@@ -3283,12 +3577,20 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel panel_manageBookings;
     private javax.swing.JPanel panel_managePackages;
     private javax.swing.JPanel panel_manageRooms;
+    private javax.swing.JPanel panel_manageStaffacc;
     private javax.swing.JRadioButton rbtn_female;
     private javax.swing.JRadioButton rbtn_male;
+    private javax.swing.JRadioButton rbtn_manager;
+    private javax.swing.JRadioButton rbtn_receptionist;
+    private javax.swing.JRadioButton rbtn_staffFemale;
+    private javax.swing.JRadioButton rbtn_staffMale;
     private javax.swing.JTable roomTable;
     private javax.swing.JSpinner spin_bedCount;
+    private javax.swing.ButtonGroup staffGenderRbtnGroup;
+    private javax.swing.ButtonGroup staffRoleRbtnGroup;
     private javax.swing.JTable table_packages;
     private javax.swing.JTable table_rReservedData;
+    private javax.swing.JTable table_staffAcc;
     private javax.swing.JTextField txt_bookedCusID;
     private javax.swing.JTextField txt_bookedRoomID;
     private javax.swing.JTextField txt_bookingDate;
@@ -3334,6 +3636,13 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JTextField txt_roomType;
     private javax.swing.JTextField txt_roomTypecheckOut;
     private javax.swing.JTextField txt_services;
+    private javax.swing.JTextField txt_staffAddress;
+    private javax.swing.JTextField txt_staffAge;
+    private javax.swing.JTextField txt_staffCon;
+    private javax.swing.JTextField txt_staffID;
+    private javax.swing.JTextField txt_staffNRC;
+    private javax.swing.JTextField txt_staffName;
+    private javax.swing.JTextField txt_staffPassword;
     private javax.swing.JLabel txt_staffid;
     private javax.swing.JTextField txt_totalCost;
     // End of variables declaration//GEN-END:variables
