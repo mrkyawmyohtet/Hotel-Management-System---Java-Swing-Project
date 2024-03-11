@@ -84,7 +84,7 @@ public class ViewRooms extends javax.swing.JFrame {
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = connect();
-            String sql = "Select room_id, room_no, room_type, room_price, status, description, bed from room";
+            String sql = "Select room_id, room_no, room_type, room_price, description, bed from room";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             table_rooms.setModel(DbUtils.resultSetToTableModel(rs));
@@ -99,7 +99,7 @@ public class ViewRooms extends javax.swing.JFrame {
     try {
         Connection con = connect();
         if (!availableRooms.isEmpty()) {
-            String sql = "SELECT room_id, room_no, room_type, room_price, status, description, bed FROM room WHERE room_id IN (";
+            String sql = "SELECT room_id, room_no, room_type, room_price, description, bed FROM room WHERE room_id IN (";
             for (int i = 0; i < availableRooms.size(); i++) {
                 sql += "'" + availableRooms.get(i) + "'";
                 if (i < availableRooms.size() - 1) {
@@ -248,7 +248,6 @@ public class ViewRooms extends javax.swing.JFrame {
         btn_viewReserved = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tarea_desc = new javax.swing.JTextArea();
-        lbl_status = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_packages = new javax.swing.JButton();
         cbox_searchRoom = new javax.swing.JComboBox<>();
@@ -385,10 +384,6 @@ public class ViewRooms extends javax.swing.JFrame {
         tarea_desc.setFocusable(false);
         jScrollPane2.setViewportView(tarea_desc);
 
-        lbl_status.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
-        lbl_status.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_status.setText("Status");
-
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 153));
@@ -477,7 +472,6 @@ public class ViewRooms extends javax.swing.JFrame {
                     .addComponent(lbl_roomNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_bedNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_cost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbl_status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
@@ -499,9 +493,7 @@ public class ViewRooms extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(lbl_status, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
+                        .addGap(72, 72, 72)
                         .addComponent(lbl_roomType, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl_roomNum, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -648,14 +640,6 @@ public class ViewRooms extends javax.swing.JFrame {
                 lbl_image.setIcon(icon);
 
                 //setting the fields to show the information about the room to the user
-                lbl_status.setText(rs.getString("status"));
-                //set the color according to the status
-                if(lbl_status.getText().equals("Available")){
-                    lbl_status.setForeground(Color.green);
-                }
-                else{
-                    lbl_status.setForeground(Color.red);
-                }
                 lbl_roomType.setText("Room Type: " + rs.getString("room_type"));
                 lbl_roomNum.setText("Room Number: " + rs.getString("room_no"));
                 lbl_bedNum.setText("Bed:" + rs.getInt("bed"));
@@ -700,12 +684,24 @@ public class ViewRooms extends javax.swing.JFrame {
             Connection con = connect();
             String sql = null;
             if(columnName.equals("room_price") || columnName.equals("bed")){
-                sql = "SELECT room_id, room_no, room_type, room_price, status, description, bed FROM room where " + columnName + " = " + data ;
+                sql = "SELECT room_id, room_no, room_type, room_price, description, bed FROM room " +
+                  "WHERE " + columnName + " = " + data + " " +
+                  "AND room_id NOT IN " +
+                  "(SELECT DISTINCT room_id FROM room_bookings WHERE booking_date = ?) " +
+                  "AND room_id NOT IN " +
+                  "(SELECT DISTINCT room_id FROM r_reserved_data WHERE ? BETWEEN check_in_date AND check_out_date)";
             }
             else{
-                sql = "SELECT room_id, room_no, room_type, room_price, status, description, bed FROM room where " + columnName + " = '" + data + "' " ;
+                sql = "SELECT room_id, room_no, room_type, room_price, description, bed FROM room " +
+                  "WHERE " + columnName + " = '" + data + "' " +
+                  "AND room_id NOT IN " +
+                  "(SELECT DISTINCT room_id FROM room_bookings WHERE booking_date = ?) " +
+                  "AND room_id NOT IN " +
+                  "(SELECT DISTINCT room_id FROM r_reserved_data WHERE ? BETWEEN check_in_date AND check_out_date)";
             }
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, formattedDate);
+            ps.setString(2, formattedDate);
             ResultSet rs = ps.executeQuery();
             DefaultTableModel model = new DefaultTableModel();
             //get the column name and columncount
@@ -839,7 +835,6 @@ public class ViewRooms extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_roomNum;
     private javax.swing.JLabel lbl_roomType;
-    private javax.swing.JLabel lbl_status;
     private javax.swing.JSpinner stay_period;
     private javax.swing.JTable table_rooms;
     private javax.swing.JTextArea tarea_desc;
