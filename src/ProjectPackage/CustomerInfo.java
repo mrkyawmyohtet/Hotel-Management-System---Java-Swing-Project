@@ -1031,6 +1031,7 @@ public class CustomerInfo extends javax.swing.JFrame {
                     //second step: insert reserved rooms data along with customer_id into room_bookings table
                     String[] tempids = getTempIDs(); //for every row in temp table, insert the data into the booking table
                     String bookSql = "insert into room_bookings (booking_id, room_id, cus_id, booking_date, stay_period) values (?, ?, ?, ?, ?)";
+                    String updateSql = "update room set status = 'Booked' where room_id = ?";
                     for(String tempid : tempids){
                         List<Object> roomBookingData = getRoomBookingDataForTempId(tempid);
                         if(!roomBookingData.isEmpty()){
@@ -1045,6 +1046,10 @@ public class CustomerInfo extends javax.swing.JFrame {
                             bookPs.setDate(4, (java.sql.Date) booking_date);
                             bookPs.setInt(5, stay_period);
                             bookPs.execute();
+                            
+                            PreparedStatement updatePs = con.prepareStatement(updateSql);
+                            updatePs.setString(1, room_id);
+                            updatePs.executeUpdate();
                         }
                     }
                     
@@ -1079,6 +1084,7 @@ public class CustomerInfo extends javax.swing.JFrame {
                     //second step: insert reserved rooms data along with customer_id into room_bookings table
                     String[] tempids = getTempIDs(); //for every row in temp table, insert the data into the booking table
                     String bookSql = "insert into room_bookings (booking_id, room_id, cus_id, booking_date, stay_period) values (?, ?, ?, ?, ?)";
+                    String updateSql = "update room set status = 'Booked' where room_id = ?";
                     for(String tempid : tempids){
                         List<Object> roomBookingData = getRoomBookingDataForTempId(tempid);
                         if(!roomBookingData.isEmpty()){
@@ -1093,6 +1099,10 @@ public class CustomerInfo extends javax.swing.JFrame {
                             bookPs.setDate(4, (java.sql.Date) booking_date);
                             bookPs.setInt(5, stay_period);
                             bookPs.execute();
+                            
+                            PreparedStatement updatePs = con.prepareStatement(updateSql);
+                            updatePs.setString(1, room_id);
+                            updatePs.executeUpdate();
                         }
                     }
                     

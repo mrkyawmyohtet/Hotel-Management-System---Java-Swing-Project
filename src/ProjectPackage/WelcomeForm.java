@@ -4,6 +4,15 @@
  */
 package ProjectPackage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
@@ -15,6 +24,47 @@ public class WelcomeForm extends javax.swing.JFrame {
      */
     public WelcomeForm() {
         initComponents();
+        try{
+            Connection con = connect();
+            String sql = "select room_id FROM room_bookings WHERE STR_TO_DATE(booking_date, '%Y-%m-%d') < CURDATE()";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            List<String> roomIdsToUpdate = new ArrayList<>();
+            while(rs.next()){
+                roomIdsToUpdate.add(rs.getString("room_id"));              
+            }
+            
+            String sql2 = "update room set status = 'Available' where room_id = ?";
+            PreparedStatement ps2 = con.prepareStatement(sql2);
+            for(String roomid : roomIdsToUpdate){
+                ps2.setString(1, roomid);
+                ps2.executeUpdate();
+            }
+            
+            String sql3 = "DELETE FROM room_bookings WHERE STR_TO_DATE(booking_date, '%Y-%m-%d') < CURDATE()";
+            PreparedStatement ps3 = con.prepareStatement(sql3);
+            ps3.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "System Ready");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public Connection connect()
+    {
+        Connection con = null;
+        String driver = "com.mysql.cj.jdbc.Driver";
+        try
+        {           
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3308/fp_hotel_management_system", "root", "root123");
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return con;
     }
 
     /**

@@ -24,7 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -127,60 +129,44 @@ public class ViewRooms extends javax.swing.JFrame {
         List<String> availableRooms = new ArrayList<>();
         try{
             con = connect();
-            String sql = "select count(*) as row_count from room_bookings";
-            ps = con.prepareStatement(sql);
+
+            // Retrieve booked room IDs for the specific date
+            String bookedSql = "SELECT DISTINCT room_id FROM room_bookings WHERE booking_date = ?";
+            ps = con.prepareStatement(bookedSql);
+            ps.setString(1, date);
             rs = ps.executeQuery();
-            int rowCount = 0;
-            while(rs.next()){
-                rowCount = rs.getInt("row_count");
+            Set<String> bookedRoomIds = new HashSet<>();
+            while (rs.next()) {
+                bookedRoomIds.add(rs.getString("room_id"));
             }
 
-            if(rowCount > 0){
-                sql = "SELECT room_id, booking_date, stay_period FROM room_bookings";
-                ps = con.prepareStatement(sql);
-                rs = ps.executeQuery();
+            // Retrieve reserved room IDs for the specific date
+            String reservedSql = "SELECT DISTINCT room_id FROM r_reserved_data WHERE check_out_date >= ?";
+            ps = con.prepareStatement(reservedSql);
+            ps.setString(1, date);
+            rs = ps.executeQuery();
+            Set<String> reservedRoomIds = new HashSet<>();
+            while (rs.next()) {
+                reservedRoomIds.add(rs.getString("room_id"));
+            }
 
-                // Calculate final dates and add room IDs if specified date is after the final date
-                while (rs.next()) {
-                    String bookingDate = rs.getString("booking_date");
-                    int stayPeriod = rs.getInt("stay_period");
+            // Retrieve all room IDs from the room table
+            String allRoomsSql = "SELECT room_id FROM room";
+            ps = con.prepareStatement(allRoomsSql);
+            rs = ps.executeQuery();
+            Set<String> allRoomIds = new HashSet<>();
+            while (rs.next()) {
+                allRoomIds.add(rs.getString("room_id"));
+            }
 
-                    // Parse booking date to Date object
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date bookingDateObj = dateFormat.parse(bookingDate);
-
-                    // Calculate final date
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(bookingDateObj);
-                    calendar.add(Calendar.DAY_OF_MONTH, stayPeriod);
-                    Date finalDate = calendar.getTime();
-
-                    // Check if specified date is after final date
-                    Date specifiedDate = dateFormat.parse(date);
-                    if (specifiedDate.after(finalDate)) {
-                        availableRooms.add(rs.getString("room_id"));
-                    }
+            // Filter out the booked and reserved room IDs from the available room IDs
+            for (String roomId : allRoomIds) {
+                if (!bookedRoomIds.contains(roomId) && !reservedRoomIds.contains(roomId)) {
+                    availableRooms.add(roomId);
                 }
             }
-            else{
-                sql = "select room_id from r_reserved_data where check_out_date < ?";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, date);
-                rs = ps.executeQuery();
-                if(rs.next()){
-                    availableRooms.add(rs.getString("room_id"));
-                }
-            }
-            
-            if (availableRooms.isEmpty()) {
-//                sql = "SELECT room_id FROM room";
-//                ps = con.prepareStatement(sql);
-//                rs = ps.executeQuery();
-//                while (rs.next()) {
-//                    availableRooms.add(rs.getString("room_id"));
-//                }
-                return availableRooms;
-            }
+
+            System.out.println("Available Rooms: " + availableRooms);
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -622,7 +608,7 @@ public class ViewRooms extends javax.swing.JFrame {
     //                    lbl_status.setText("Occupied");
     //                    lbl_status.setForeground(Color.red);
     //                    //recall the display function to show updated data in the table
-                        displayAll();
+//                        displayAll();
                     }
                     catch(Exception e){
                         e.printStackTrace();

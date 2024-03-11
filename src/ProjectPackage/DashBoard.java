@@ -1119,7 +1119,7 @@ public class DashBoard extends javax.swing.JFrame {
         panel_adminHomeLayout.setVerticalGroup(
             panel_adminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_adminHomeLayout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
+                .addContainerGap(224, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(202, 202, 202))
         );
@@ -1317,7 +1317,7 @@ public class DashBoard extends javax.swing.JFrame {
         panel_manageRoomsLayout.setVerticalGroup(
             panel_manageRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRoomsLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(panel_manageRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRoomsLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1586,7 +1586,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btn_removePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_updatePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_generatePackageID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         TabbedPane.addTab("tab3", panel_managePackages);
@@ -1975,7 +1975,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbox_roomBeds, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)))
+                        .addComponent(cbox_roomBeds, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
@@ -1985,7 +1985,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbox_roomNos, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)))
+                        .addComponent(cbox_roomNos, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
@@ -2282,7 +2282,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btn_searchRoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
                         .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2571,11 +2571,11 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_manageStaffaccLayout.createSequentialGroup()
                         .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_staffNRC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rbtn_manager)
-                                .addComponent(rbtn_receptionist))))
+                                .addComponent(rbtn_receptionist))
+                            .addComponent(txt_staffNRC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2597,7 +2597,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_generateStaffID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         TabbedPane.addTab("tab7", panel_manageStaffacc);
@@ -3007,6 +3007,21 @@ public class DashBoard extends javax.swing.JFrame {
             if(result == JOptionPane.YES_OPTION){
                 try{
                     Connection con = connect();
+                    String getRoomIDsSql = "select room_id from room_bookings where booking_id = ?";
+                    PreparedStatement griPs = con.prepareStatement(getRoomIDsSql);
+                    griPs.setString(1, bookingID);
+                    ResultSet rs = griPs.executeQuery();
+                    List<String> roomIds = new ArrayList<>();
+                    while(rs.next()){
+                        roomIds.add(rs.getString("room_id"));
+                    }
+                    
+                    for(String id : roomIds){
+                        String updateStatus = "update room set status = 'Available' where room_id = ?";
+                        PreparedStatement updatePs = con.prepareStatement(updateStatus);
+                        updatePs.setString(1, id);
+                        updatePs.executeUpdate();
+                    }
                     String sql = "Delete from room_bookings where booking_id = ?";
                     PreparedStatement ps = con.prepareStatement(sql);
                     ps.setString(1, bookingID);
@@ -3312,6 +3327,7 @@ public class DashBoard extends javax.swing.JFrame {
                     
                     clearCheckOutFields();
                     txt_roomNoSearch.setText("");
+                    DisplayRoomReservedData();
 
                     int result2 = JOptionPane.showConfirmDialog(null, "Checked Out Successfully.\nDo you want to print the voucher?", "Operation Successful", JOptionPane.YES_NO_OPTION);
                     if(result2 == JOptionPane.YES_OPTION){
@@ -3420,6 +3436,7 @@ public class DashBoard extends javax.swing.JFrame {
                     else{
                         clearCheckOutFields();
                         txt_roomNoSearch.setText("");
+                        DisplayRoomReservedData();
                     }
                 }
                 catch(Exception e){
