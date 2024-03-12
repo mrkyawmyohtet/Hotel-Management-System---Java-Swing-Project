@@ -114,7 +114,7 @@ public class BookingReceipt extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.setFocusable(false);
 
-        jPanel2.setBackground(new java.awt.Color(102, 204, 0));
+        jPanel2.setBackground(new java.awt.Color(255, 204, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,7 +139,7 @@ public class BookingReceipt extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        btn_printReceipt.setBackground(new java.awt.Color(102, 204, 0));
+        btn_printReceipt.setBackground(new java.awt.Color(255, 204, 0));
         btn_printReceipt.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btn_printReceipt.setForeground(new java.awt.Color(255, 255, 255));
         btn_printReceipt.setText("Print the Receipt");
@@ -150,7 +150,7 @@ public class BookingReceipt extends javax.swing.JFrame {
             }
         });
 
-        btn_goHome.setBackground(new java.awt.Color(255, 204, 0));
+        btn_goHome.setBackground(new java.awt.Color(0, 0, 0));
         btn_goHome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btn_goHome.setForeground(new java.awt.Color(255, 255, 255));
         btn_goHome.setText("Go back to Home Page");

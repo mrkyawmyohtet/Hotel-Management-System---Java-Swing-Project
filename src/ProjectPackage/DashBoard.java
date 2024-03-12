@@ -30,6 +30,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -65,6 +66,9 @@ public class DashBoard extends javax.swing.JFrame {
         }
         else if(role == 1){
             txt_role.setText("Staff Role: Receptionist");
+            panel_manageRoomsLbl.setVisible(false);
+            panel_managePackLbl.setVisible(false);
+            panel_manageStaffLbl.setVisible(false);
         }
         TabbedPane.setSelectedIndex(0);
         DisplayRoom();
@@ -523,7 +527,7 @@ public class DashBoard extends javax.swing.JFrame {
         txt_roomPriceCheckIn.setText("");
         try{
             Connection con = connect();
-            String sql = "Select room_id, description, room_no, bed from room where room_type = ? and status = 'Available'";
+            String sql = "Select distinct room_id, description, room_no, bed from room where room_type = ? and status = 'Available'";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, roomType);
             ResultSet rs = ps.executeQuery();
@@ -577,7 +581,7 @@ public class DashBoard extends javax.swing.JFrame {
         txt_role = new javax.swing.JLabel();
         txt_staffid = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel3 = new javax.swing.JPanel();
+        panel_manageRoomsLbl = new javax.swing.JPanel();
         lbl_manageRooms = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lbl_manageRoomBooking = new javax.swing.JLabel();
@@ -585,11 +589,11 @@ public class DashBoard extends javax.swing.JFrame {
         lbl_guestCheckin = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         lbl_guestCheckiout = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        panel_manageStaffLbl = new javax.swing.JPanel();
         lbl_manageStaffacc = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lbl_logout = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
+        panel_managePackLbl = new javax.swing.JPanel();
         lbl_managePackage = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         lbl_managePackageBooking = new javax.swing.JLabel();
@@ -772,10 +776,11 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(255, 204, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("GOLDEN OASIS HOTEL");
 
         txt_role.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
@@ -788,8 +793,8 @@ public class DashBoard extends javax.swing.JFrame {
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
+        panel_manageRoomsLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_manageRoomsLbl.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_manageRooms.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_manageRooms.setForeground(new java.awt.Color(0, 0, 0));
@@ -802,18 +807,18 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_manageRoomsLblLayout = new javax.swing.GroupLayout(panel_manageRoomsLbl);
+        panel_manageRoomsLbl.setLayout(panel_manageRoomsLblLayout);
+        panel_manageRoomsLblLayout.setHorizontalGroup(
+            panel_manageRoomsLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_manageRoomsLblLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(lbl_manageRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        panel_manageRoomsLblLayout.setVerticalGroup(
+            panel_manageRoomsLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_manageRoomsLblLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_manageRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -912,8 +917,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setForeground(new java.awt.Color(0, 0, 0));
+        panel_manageStaffLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_manageStaffLbl.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_manageStaffacc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_manageStaffacc.setForeground(new java.awt.Color(0, 0, 0));
@@ -926,18 +931,18 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_manageStaffLblLayout = new javax.swing.GroupLayout(panel_manageStaffLbl);
+        panel_manageStaffLbl.setLayout(panel_manageStaffLblLayout);
+        panel_manageStaffLblLayout.setHorizontalGroup(
+            panel_manageStaffLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_manageStaffLblLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(lbl_manageStaffacc, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        panel_manageStaffLblLayout.setVerticalGroup(
+            panel_manageStaffLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_manageStaffLblLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_manageStaffacc, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -974,8 +979,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setForeground(new java.awt.Color(0, 0, 0));
+        panel_managePackLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_managePackLbl.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_managePackage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_managePackage.setForeground(new java.awt.Color(0, 0, 0));
@@ -988,18 +993,18 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_managePackLblLayout = new javax.swing.GroupLayout(panel_managePackLbl);
+        panel_managePackLbl.setLayout(panel_managePackLblLayout);
+        panel_managePackLblLayout.setHorizontalGroup(
+            panel_managePackLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_managePackLblLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(lbl_managePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        panel_managePackLblLayout.setVerticalGroup(
+            panel_managePackLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_managePackLblLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_managePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1040,26 +1045,29 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_manageRoomsLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_manageStaffLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_managePackLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txt_staffid, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_role, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(66, Short.MAX_VALUE))
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_staffid, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_role, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 60, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1073,19 +1081,19 @@ public class DashBoard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_manageRoomsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(panel_managePackLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_manageStaffLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
@@ -1119,7 +1127,7 @@ public class DashBoard extends javax.swing.JFrame {
         panel_adminHomeLayout.setVerticalGroup(
             panel_adminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_adminHomeLayout.createSequentialGroup()
-                .addContainerGap(224, Short.MAX_VALUE)
+                .addContainerGap(248, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(202, 202, 202))
         );
@@ -1137,6 +1145,8 @@ public class DashBoard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        roomTable.setSelectionBackground(new java.awt.Color(5, 124, 124));
+        roomTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         roomTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 roomTableMouseClicked(evt);
@@ -1217,50 +1227,55 @@ public class DashBoard extends javax.swing.JFrame {
         lbl_roomImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lbl_roomImage.setFocusable(false);
 
-        btn_addRoom.setBackground(new java.awt.Color(255, 255, 255));
+        btn_addRoom.setBackground(new java.awt.Color(5, 124, 124));
         btn_addRoom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_addRoom.setForeground(new java.awt.Color(0, 0, 0));
+        btn_addRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_addRoom.setText("Add Room");
+        btn_addRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_addRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addRoomActionPerformed(evt);
             }
         });
 
-        btn_updateRoom.setBackground(new java.awt.Color(255, 255, 255));
+        btn_updateRoom.setBackground(new java.awt.Color(5, 124, 124));
         btn_updateRoom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_updateRoom.setForeground(new java.awt.Color(0, 0, 0));
+        btn_updateRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_updateRoom.setText("Update Room");
+        btn_updateRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_updateRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateRoomActionPerformed(evt);
             }
         });
 
-        btn_removeRoom.setBackground(new java.awt.Color(255, 255, 255));
+        btn_removeRoom.setBackground(new java.awt.Color(5, 124, 124));
         btn_removeRoom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_removeRoom.setForeground(new java.awt.Color(0, 0, 0));
+        btn_removeRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_removeRoom.setText("Remove Room");
+        btn_removeRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_removeRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_removeRoomActionPerformed(evt);
             }
         });
 
-        btn_chooseImage.setBackground(new java.awt.Color(255, 255, 255));
+        btn_chooseImage.setBackground(new java.awt.Color(5, 124, 124));
         btn_chooseImage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_chooseImage.setForeground(new java.awt.Color(0, 0, 0));
+        btn_chooseImage.setForeground(new java.awt.Color(255, 255, 255));
         btn_chooseImage.setText("Choose Image");
+        btn_chooseImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_chooseImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_chooseImageActionPerformed(evt);
             }
         });
 
-        btn_generateID.setBackground(new java.awt.Color(255, 255, 255));
+        btn_generateID.setBackground(new java.awt.Color(5, 124, 124));
         btn_generateID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_generateID.setForeground(new java.awt.Color(0, 0, 0));
+        btn_generateID.setForeground(new java.awt.Color(255, 255, 255));
         btn_generateID.setText("Generate ID to add new room");
+        btn_generateID.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_generateID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_generateIDActionPerformed(evt);
@@ -1312,12 +1327,12 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_manageRoomsLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(btn_generateID)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         panel_manageRoomsLayout.setVerticalGroup(
             panel_manageRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRoomsLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(panel_manageRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRoomsLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1447,50 +1462,55 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Choose Image:");
 
-        btn_chooseNewImage.setBackground(new java.awt.Color(255, 255, 255));
+        btn_chooseNewImage.setBackground(new java.awt.Color(5, 124, 124));
         btn_chooseNewImage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_chooseNewImage.setForeground(new java.awt.Color(0, 0, 0));
+        btn_chooseNewImage.setForeground(new java.awt.Color(255, 255, 255));
         btn_chooseNewImage.setText("Choose Image");
+        btn_chooseNewImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_chooseNewImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_chooseNewImageActionPerformed(evt);
             }
         });
 
-        btn_addPackage.setBackground(new java.awt.Color(255, 255, 255));
+        btn_addPackage.setBackground(new java.awt.Color(5, 124, 124));
         btn_addPackage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_addPackage.setForeground(new java.awt.Color(0, 0, 0));
+        btn_addPackage.setForeground(new java.awt.Color(255, 255, 255));
         btn_addPackage.setText("Add Package");
+        btn_addPackage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_addPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addPackageActionPerformed(evt);
             }
         });
 
-        btn_removePackage.setBackground(new java.awt.Color(255, 255, 255));
+        btn_removePackage.setBackground(new java.awt.Color(5, 124, 124));
         btn_removePackage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_removePackage.setForeground(new java.awt.Color(0, 0, 0));
+        btn_removePackage.setForeground(new java.awt.Color(255, 255, 255));
         btn_removePackage.setText("Remove Package");
+        btn_removePackage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_removePackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_removePackageActionPerformed(evt);
             }
         });
 
-        btn_updatePackage.setBackground(new java.awt.Color(255, 255, 255));
+        btn_updatePackage.setBackground(new java.awt.Color(5, 124, 124));
         btn_updatePackage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_updatePackage.setForeground(new java.awt.Color(0, 0, 0));
+        btn_updatePackage.setForeground(new java.awt.Color(255, 255, 255));
         btn_updatePackage.setText("Update Package");
+        btn_updatePackage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_updatePackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updatePackageActionPerformed(evt);
             }
         });
 
-        btn_generatePackageID.setBackground(new java.awt.Color(255, 255, 255));
+        btn_generatePackageID.setBackground(new java.awt.Color(5, 124, 124));
         btn_generatePackageID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_generatePackageID.setForeground(new java.awt.Color(0, 0, 0));
+        btn_generatePackageID.setForeground(new java.awt.Color(255, 255, 255));
         btn_generatePackageID.setText("Generate ID to Add New Package");
+        btn_generatePackageID.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_generatePackageID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_generatePackageIDActionPerformed(evt);
@@ -1508,7 +1528,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(btn_updatePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_removePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(btn_generatePackageID)
                 .addGap(52, 52, 52))
             .addGroup(panel_managePackagesLayout.createSequentialGroup()
@@ -1586,7 +1606,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btn_removePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_updatePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_generatePackageID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         TabbedPane.addTab("tab3", panel_managePackages);
@@ -1602,9 +1622,9 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Booking ID:");
 
-        btn_searchBooking.setBackground(new java.awt.Color(255, 255, 255));
+        btn_searchBooking.setBackground(new java.awt.Color(5, 124, 124));
         btn_searchBooking.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_searchBooking.setForeground(new java.awt.Color(0, 0, 0));
+        btn_searchBooking.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchBooking.setText("Search");
         btn_searchBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1644,20 +1664,22 @@ public class DashBoard extends javax.swing.JFrame {
         txt_bookingStayPeriod.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_bookingStayPeriod.setForeground(new java.awt.Color(0, 0, 0));
 
-        btn_cancelBooking.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cancelBooking.setBackground(new java.awt.Color(5, 124, 124));
         btn_cancelBooking.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_cancelBooking.setForeground(new java.awt.Color(0, 0, 0));
+        btn_cancelBooking.setForeground(new java.awt.Color(255, 255, 255));
         btn_cancelBooking.setText("Cancel Booking");
+        btn_cancelBooking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_cancelBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelBookingActionPerformed(evt);
             }
         });
 
-        btn_clearBookingFields.setBackground(new java.awt.Color(255, 255, 255));
+        btn_clearBookingFields.setBackground(new java.awt.Color(5, 124, 124));
         btn_clearBookingFields.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_clearBookingFields.setForeground(new java.awt.Color(0, 0, 0));
+        btn_clearBookingFields.setForeground(new java.awt.Color(255, 255, 255));
         btn_clearBookingFields.setText("Clear Fields");
+        btn_clearBookingFields.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_clearBookingFields.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clearBookingFieldsActionPerformed(evt);
@@ -1669,61 +1691,67 @@ public class DashBoard extends javax.swing.JFrame {
         panel_manageBookingsLayout.setHorizontalGroup(
             panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(166, Short.MAX_VALUE)
+                .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panel_manageBookingsLayout.createSequentialGroup()
                         .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel_manageBookingsLayout.createSequentialGroup()
                                 .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_searchBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(106, 106, 106)
+                        .addGap(308, 308, 308))
+                    .addGroup(panel_manageBookingsLayout.createSequentialGroup()
                         .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(38, 38, 38))
+                            .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(131, 131, 131))
         );
         panel_manageBookingsLayout.setVerticalGroup(
             panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_cancelBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_searchBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
+                .addContainerGap(210, Short.MAX_VALUE)
+                .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_manageBookingsLayout.createSequentialGroup()
+                            .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(80, 80, 80))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
+                            .addGap(76, 76, 76)
+                            .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panel_manageBookingsLayout.createSequentialGroup()
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_searchBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(188, 188, 188))
+                        .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(168, 168, 168))
         );
 
         TabbedPane.addTab("tab4", panel_manageBookings);
@@ -1875,25 +1903,33 @@ public class DashBoard extends javax.swing.JFrame {
         txt_roomPriceCheckIn.setForeground(new java.awt.Color(0, 0, 0));
         txt_roomPriceCheckIn.setEnabled(false);
 
-        btn_allocateRoom.setBackground(new java.awt.Color(0, 153, 153));
+        btn_allocateRoom.setBackground(new java.awt.Color(5, 124, 124));
         btn_allocateRoom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_allocateRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_allocateRoom.setText("Allocate Room");
+        btn_allocateRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_allocateRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_allocateRoomActionPerformed(evt);
             }
         });
 
-        btn_clear.setBackground(new java.awt.Color(204, 204, 204));
+        btn_clear.setBackground(new java.awt.Color(5, 124, 124));
         btn_clear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_clear.setForeground(new java.awt.Color(0, 0, 0));
+        btn_clear.setForeground(new java.awt.Color(255, 255, 255));
         btn_clear.setText("Clear Fields");
+        btn_clear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
 
-        btn_addToList.setBackground(new java.awt.Color(0, 153, 153));
+        btn_addToList.setBackground(new java.awt.Color(5, 124, 124));
         btn_addToList.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_addToList.setForeground(new java.awt.Color(255, 255, 255));
         btn_addToList.setText("Add to List");
+        btn_addToList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_addToList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addToListActionPerformed(evt);
@@ -1927,23 +1963,24 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(txt_cusContact)
                     .addComponent(txt_cusCheckinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(241, 241, 241)
-                .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbox_roomTypes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbox_roomBeds, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbox_roomNos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_roomIdCheckIn)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_roomPriceCheckIn)
-                    .addComponent(btn_allocateRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(btn_clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbox_roomDecs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_addToList, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbox_roomTypes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbox_roomBeds, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbox_roomNos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_roomIdCheckIn)
+                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_roomPriceCheckIn)
+                        .addComponent(btn_allocateRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addComponent(cbox_roomDecs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_addToList, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         panel_guestCheckInLayout.setVerticalGroup(
             panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1975,7 +2012,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbox_roomBeds, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                        .addComponent(cbox_roomBeds, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
@@ -1985,7 +2022,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbox_roomNos, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                        .addComponent(cbox_roomNos, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
@@ -2011,18 +2048,20 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_addToList, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cusCheckinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_allocateRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_guestCheckInLayout.createSequentialGroup()
+                        .addComponent(txt_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_cusCheckinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_guestCheckInLayout.createSequentialGroup()
+                        .addComponent(btn_addToList, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(btn_allocateRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(104, 104, 104))
         );
 
         TabbedPane.addTab("tab5", panel_guestCheckIn);
@@ -2184,10 +2223,11 @@ public class DashBoard extends javax.swing.JFrame {
         txt_checkOutDate.setForeground(new java.awt.Color(0, 0, 0));
         txt_checkOutDate.setEnabled(false);
 
-        btn_checkOut.setBackground(new java.awt.Color(0, 153, 153));
+        btn_checkOut.setBackground(new java.awt.Color(5, 124, 124));
         btn_checkOut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_checkOut.setForeground(new java.awt.Color(255, 255, 255));
         btn_checkOut.setText("Check Out");
+        btn_checkOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_checkOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_checkOutActionPerformed(evt);
@@ -2203,10 +2243,11 @@ public class DashBoard extends javax.swing.JFrame {
         txt_roomNoSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_roomNoSearch.setForeground(new java.awt.Color(0, 0, 0));
 
-        btn_searchRoomNo.setBackground(new java.awt.Color(255, 255, 255));
+        btn_searchRoomNo.setBackground(new java.awt.Color(5, 124, 124));
         btn_searchRoomNo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_searchRoomNo.setForeground(new java.awt.Color(0, 0, 0));
+        btn_searchRoomNo.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchRoomNo.setText("Search");
+        btn_searchRoomNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_searchRoomNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchRoomNoActionPerformed(evt);
@@ -2218,59 +2259,60 @@ public class DashBoard extends javax.swing.JFrame {
         panel_guestCheckOutLayout.setHorizontalGroup(
             panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_cusNRCcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusPasscheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusGendercheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusIDcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusNamecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusAgecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_guestCheckOutLayout.createSequentialGroup()
-                        .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_checkOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_cusConcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_checkInDate, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(120, 120, 120))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_guestCheckOutLayout.createSequentialGroup()
-                        .addComponent(btn_checkOut, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139)))
-                .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_paymentStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_totalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_roomPricecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_roomTypecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_roomIDcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_roomNocheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73))
-            .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
-                        .addComponent(jLabel54)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_roomNoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_searchRoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 992, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
+                                .addComponent(jLabel54)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_roomNoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_searchRoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 992, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_cusNRCcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cusPasscheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cusGendercheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cusIDcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cusNamecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cusAgecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(129, 129, 129)
+                        .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_guestCheckOutLayout.createSequentialGroup()
+                                .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_checkOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_cusConcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_checkInDate, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(120, 120, 120))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_guestCheckOutLayout.createSequentialGroup()
+                                .addComponent(btn_checkOut, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(139, 139, 139)))
+                        .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_paymentStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_totalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_roomPricecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_roomTypecheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_roomIDcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_roomNocheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         panel_guestCheckOutLayout.setVerticalGroup(
             panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2281,8 +2323,8 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(txt_roomNoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_searchRoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
                         .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2348,7 +2390,7 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_paymentStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(62, 62, 62))
+                .addGap(30, 30, 30))
         );
 
         TabbedPane.addTab("tab6", panel_guestCheckOut);
@@ -2436,25 +2478,28 @@ public class DashBoard extends javax.swing.JFrame {
         txt_staffPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_staffPassword.setForeground(new java.awt.Color(0, 0, 0));
 
-        btn_addStaff.setBackground(new java.awt.Color(0, 153, 153));
+        btn_addStaff.setBackground(new java.awt.Color(5, 124, 124));
         btn_addStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_addStaff.setForeground(new java.awt.Color(255, 255, 255));
         btn_addStaff.setText("Add New Staff");
+        btn_addStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_addStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addStaffActionPerformed(evt);
             }
         });
 
-        btn_updateStaff.setBackground(new java.awt.Color(0, 102, 0));
+        btn_updateStaff.setBackground(new java.awt.Color(5, 124, 124));
         btn_updateStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_updateStaff.setForeground(new java.awt.Color(255, 255, 255));
         btn_updateStaff.setText("Update Staff");
+        btn_updateStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btn_removeStaff.setBackground(new java.awt.Color(153, 51, 0));
+        btn_removeStaff.setBackground(new java.awt.Color(5, 124, 124));
         btn_removeStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_removeStaff.setForeground(new java.awt.Color(255, 255, 255));
         btn_removeStaff.setText("Remove Staff");
+        btn_removeStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         staffGenderRbtnGroup.add(rbtn_staffMale);
         rbtn_staffMale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2476,10 +2521,11 @@ public class DashBoard extends javax.swing.JFrame {
         rbtn_receptionist.setForeground(new java.awt.Color(0, 0, 0));
         rbtn_receptionist.setText("Receptionist");
 
-        btn_generateStaffID.setBackground(new java.awt.Color(255, 255, 255));
+        btn_generateStaffID.setBackground(new java.awt.Color(5, 124, 124));
         btn_generateStaffID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_generateStaffID.setForeground(new java.awt.Color(0, 0, 0));
+        btn_generateStaffID.setForeground(new java.awt.Color(255, 255, 255));
         btn_generateStaffID.setText("Generate Staff ID");
+        btn_generateStaffID.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_generateStaffID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_generateStaffIDActionPerformed(evt);
@@ -2537,7 +2583,7 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         panel_manageStaffaccLayout.setVerticalGroup(
             panel_manageStaffaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2597,12 +2643,12 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_generateStaffID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         TabbedPane.addTab("tab7", panel_manageStaffacc);
 
-        jPanel1.add(TabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, -34, -1, 810));
+        jPanel1.add(TabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, -34, 1030, 840));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2618,17 +2664,6 @@ public class DashBoard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lbl_manageRoomsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomsMouseClicked
-        // TODO add your handling code here:
-        if(role != 0){
-            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-            TabbedPane.setSelectedIndex(1);
-            clearRoomFields();
-        }       
-    }//GEN-LAST:event_lbl_manageRoomsMouseClicked
 
     private void roomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomTableMouseClicked
         // TODO add your handling code here:
@@ -2825,17 +2860,6 @@ public class DashBoard extends javax.swing.JFrame {
         lbl_packageImage.setIcon(icon);
     }//GEN-LAST:event_btn_chooseNewImageActionPerformed
 
-    private void lbl_managePackageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageMouseClicked
-        // TODO add your handling code here:
-        if(role != 0){
-            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-            TabbedPane.setSelectedIndex(2);
-            clearPackageFields();
-        }
-    }//GEN-LAST:event_lbl_managePackageMouseClicked
-
     private void btn_generatePackageIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generatePackageIDActionPerformed
         // TODO add your handling code here:
         txt_packageID.setText(generatePackageID());
@@ -2984,12 +3008,6 @@ public class DashBoard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_searchBookingActionPerformed
 
-    private void lbl_manageRoomBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomBookingMouseClicked
-        // TODO add your handling code here:
-        TabbedPane.setSelectedIndex(3);
-        clearBookingData();
-    }//GEN-LAST:event_lbl_manageRoomBookingMouseClicked
-
     private void btn_clearBookingFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearBookingFieldsActionPerformed
         // TODO add your handling code here:
         clearBookingData();
@@ -3039,33 +3057,6 @@ public class DashBoard extends javax.swing.JFrame {
             clearBookingData();
         }
     }//GEN-LAST:event_btn_cancelBookingActionPerformed
-
-    private void lbl_guestCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckinMouseClicked
-        // TODO add your handling code here:
-        TabbedPane.setSelectedIndex(4);
-        txt_cusID.setText(generateCustomerID());
-        sameRReservedID = generateRReservedID();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String currentDate = LocalDate.now().format(dateFormat);
-        txt_cusCheckinDate.setText(currentDate);
-        cbox_roomTypes.removeAllItems();
-        cbox_roomDecs.removeAllItems();
-        cbox_roomBeds.removeAllItems();
-        cbox_roomNos.removeAllItems();
-        
-        try{
-            Connection con = connect();
-            String sql = "Select distinct room_type from room";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                cbox_roomTypes.addItem(rs.getString("room_type"));
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_lbl_guestCheckinMouseClicked
 
     private void cbox_roomTypesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbox_roomTypesItemStateChanged
         // TODO add your handling code here:
@@ -3123,82 +3114,92 @@ public class DashBoard extends javax.swing.JFrame {
                     }
                     String cusContact = txt_cusContact.getText();
                     String checkInDate = txt_cusCheckinDate.getText();
-                    if(selectedRoomIDs.isEmpty()){
-                        try{
-                            Connection con = connect();
-                            String sql = "insert into customer_info (cus_id, cus_name, cus_age, cus_nrc, cus_gender, cus_contact, cus_passport) values (?, ?, ?, ?, ?, ?, ?)";
-                            PreparedStatement ps = con.prepareStatement(sql);
-                            ps.setString(1, cusID);
-                            ps.setString(2, cusName);
-                            ps.setInt(3, Integer.parseInt(cusAge));
-                            ps.setString(4, cusNRC);
-                            ps.setInt(5, gender);
-                            ps.setString(6, cusContact);
-                            ps.setString(7, cusPass);
-                            ps.execute();
+                    if(Pattern.matches("^(0|[1-9][0-9]*)$", cusAge)){
+                        if(Pattern.matches("\\+959\\d*", cusContact)){
+                            if(selectedRoomIDs.isEmpty()){
+                                try{
+                                    Connection con = connect();
+                                    String sql = "insert into customer_info (cus_id, cus_name, cus_age, cus_nrc, cus_gender, cus_contact, cus_passport) values (?, ?, ?, ?, ?, ?, ?)";
+                                    PreparedStatement ps = con.prepareStatement(sql);
+                                    ps.setString(1, cusID);
+                                    ps.setString(2, cusName);
+                                    ps.setInt(3, Integer.parseInt(cusAge));
+                                    ps.setString(4, cusNRC);
+                                    ps.setInt(5, gender);
+                                    ps.setString(6, cusContact);
+                                    ps.setString(7, cusPass);
+                                    ps.execute();
 
-                            String sql2 = "insert into r_reserved_data (r_reserved_id, cus_id, room_id, payment_status, check_in_date, check_out_date) values (?, ?, ?, ?, ?, ?)";
-                            PreparedStatement ps2 = con.prepareStatement(sql2);
-                            ps2.setString(1, generateRReservedID());
-                            ps2.setString(2, cusID);
-                            ps2.setString(3, txt_roomIdCheckIn.getText());
-                            ps2.setString(4, "Not Paid");
-                            ps2.setString(5, checkInDate);
-                            ps2.setString(6, null);
-                            ps2.execute();
+                                    String sql2 = "insert into r_reserved_data (r_reserved_id, cus_id, room_id, payment_status, check_in_date, check_out_date) values (?, ?, ?, ?, ?, ?)";
+                                    PreparedStatement ps2 = con.prepareStatement(sql2);
+                                    ps2.setString(1, generateRReservedID());
+                                    ps2.setString(2, cusID);
+                                    ps2.setString(3, txt_roomIdCheckIn.getText());
+                                    ps2.setString(4, "Not Paid");
+                                    ps2.setString(5, checkInDate);
+                                    ps2.setString(6, null);
+                                    ps2.execute();
 
-                            String sql3 = "update room set status = 'Reserved' where room_id = ?";
-                            PreparedStatement ps3 = con.prepareStatement(sql3);
-                            ps3.setString(1, txt_roomIdCheckIn.getText());
-                            ps3.executeUpdate();
+                                    String sql3 = "update room set status = 'Reserved' where room_id = ?";
+                                    PreparedStatement ps3 = con.prepareStatement(sql3);
+                                    ps3.setString(1, txt_roomIdCheckIn.getText());
+                                    ps3.executeUpdate();
 
-                            JOptionPane.showMessageDialog(null, "Room Allocated Successfully", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
-                            getRoomDetails();
-                            clearCusFields();
+                                    JOptionPane.showMessageDialog(null, "Room Allocated Successfully", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
+                                    getRoomDetails();
+                                    clearCusFields();
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                            else{
+                                try{
+                                    Connection con = connect();
+                                    String sql = "insert into customer_info (cus_id, cus_name, cus_age, cus_nrc, cus_gender, cus_contact, cus_passport) values (?, ?, ?, ?, ?, ?, ?)";
+                                    PreparedStatement ps = con.prepareStatement(sql);
+                                    ps.setString(1, cusID);
+                                    ps.setString(2, cusName);
+                                    ps.setInt(3, Integer.parseInt(cusAge));
+                                    ps.setString(4, cusNRC);
+                                    ps.setInt(5, gender);
+                                    ps.setString(6, cusContact);
+                                    ps.setString(7, cusPass);
+                                    ps.execute();
+
+                                    for(String roomId : selectedRoomIDs){
+                                        String sql2 = "insert into r_reserved_data (r_reserved_id, cus_id, room_id, payment_status, check_in_date, check_out_date) values (?, ?, ?, ?, ?, ?)";
+                                        PreparedStatement ps2 = con.prepareStatement(sql2);
+                                        ps2.setString(1, sameRReservedID);
+                                        ps2.setString(2, cusID);
+                                        ps2.setString(3, roomId);
+                                        ps2.setString(4, "Not Paid");
+                                        ps2.setString(5, checkInDate);
+                                        ps2.setString(6, null);
+                                        ps2.execute();
+
+                                        String sql3 = "update room set status = 'Reserved' where room_id = ?";
+                                        PreparedStatement ps3 = con.prepareStatement(sql3);
+                                        ps3.setString(1, roomId);
+                                        ps3.executeUpdate();
+                                    }
+
+                                    JOptionPane.showMessageDialog(null, "Rooms Allocated Successfully", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
+                                    getRoomDetails();
+                                    clearCusFields();
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                }
+
+                            }
                         }
-                        catch(Exception e){
-                            e.printStackTrace();
+                        else{
+                            JOptionPane.showMessageDialog(null, "Invalid Contact Input", "Invalid Input", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                     else{
-                        try{
-                            Connection con = connect();
-                            String sql = "insert into customer_info (cus_id, cus_name, cus_age, cus_nrc, cus_gender, cus_contact, cus_passport) values (?, ?, ?, ?, ?, ?, ?)";
-                            PreparedStatement ps = con.prepareStatement(sql);
-                            ps.setString(1, cusID);
-                            ps.setString(2, cusName);
-                            ps.setInt(3, Integer.parseInt(cusAge));
-                            ps.setString(4, cusNRC);
-                            ps.setInt(5, gender);
-                            ps.setString(6, cusContact);
-                            ps.setString(7, cusPass);
-                            ps.execute();
-                            
-                            for(String roomId : selectedRoomIDs){
-                                String sql2 = "insert into r_reserved_data (r_reserved_id, cus_id, room_id, payment_status, check_in_date, check_out_date) values (?, ?, ?, ?, ?, ?)";
-                                PreparedStatement ps2 = con.prepareStatement(sql2);
-                                ps2.setString(1, sameRReservedID);
-                                ps2.setString(2, cusID);
-                                ps2.setString(3, roomId);
-                                ps2.setString(4, "Not Paid");
-                                ps2.setString(5, checkInDate);
-                                ps2.setString(6, null);
-                                ps2.execute();
-
-                                String sql3 = "update room set status = 'Reserved' where room_id = ?";
-                                PreparedStatement ps3 = con.prepareStatement(sql3);
-                                ps3.setString(1, roomId);
-                                ps3.executeUpdate();
-                            }
-                            
-                            JOptionPane.showMessageDialog(null, "Rooms Allocated Successfully", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
-                            getRoomDetails();
-                            clearCusFields();
-                        }
-                        catch(Exception e){
-                            e.printStackTrace();
-                        }
-                        
+                        JOptionPane.showMessageDialog(null, "Invalid Age Input", "Invalid Input", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
@@ -3207,15 +3208,6 @@ public class DashBoard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please Enter all Required Fields", "Empty Fields", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_allocateRoomActionPerformed
-
-    private void lbl_guestCheckioutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckioutMouseClicked
-        // TODO add your handling code here:
-        TabbedPane.setSelectedIndex(5);
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String currentDate = LocalDate.now().format(dateFormat);
-        txt_checkOutDate.setText(currentDate);
-        DisplayRoomReservedData();
-    }//GEN-LAST:event_lbl_guestCheckioutMouseClicked
 
     private void table_rReservedDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_rReservedDataMouseClicked
         // TODO add your handling code here:
@@ -3266,22 +3258,6 @@ public class DashBoard extends javax.swing.JFrame {
             e.printStackTrace();
         }   
     }//GEN-LAST:event_table_rReservedDataMouseClicked
-
-    private void lbl_managePackageBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageBookingMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lbl_managePackageBookingMouseClicked
-
-    private void lbl_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoutMouseClicked
-        // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(null, "Confirm Logout?", "Confirmation", JOptionPane.YES_NO_OPTION);
-        if(result == JOptionPane.YES_OPTION){
-            txt_staffid.setText("Staff id");
-            txt_role.setText("Staff role");
-            WelcomeForm wf = new WelcomeForm();
-            wf.setVisible(true);
-            this.hide();
-        }
-    }//GEN-LAST:event_lbl_logoutMouseClicked
 
     private void btn_checkOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_checkOutActionPerformed
         // TODO add your handling code here:
@@ -3491,18 +3467,6 @@ public class DashBoard extends javax.swing.JFrame {
         selectedRoomIDs.add(txt_roomIdCheckIn.getText());
     }//GEN-LAST:event_btn_addToListActionPerformed
 
-    private void lbl_manageStaffaccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageStaffaccMouseClicked
-        // TODO add your handling code here:
-        if(role == 0){
-            TabbedPane.setSelectedIndex(6);
-            DisplayStaffInfo();
-            clearStaffFields();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_lbl_manageStaffaccMouseClicked
-
     private void table_staffAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_staffAccMouseClicked
         // TODO add your handling code here:
         TableModel model = table_staffAcc.getModel();
@@ -3586,6 +3550,103 @@ public class DashBoard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_addStaffActionPerformed
+
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        // TODO add your handling code here:
+        clearCusFields();
+    }//GEN-LAST:event_btn_clearActionPerformed
+
+    private void lbl_managePackageBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageBookingMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lbl_managePackageBookingMouseClicked
+
+    private void lbl_managePackageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageMouseClicked
+        // TODO add your handling code here:
+        if(role != 0){
+            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            TabbedPane.setSelectedIndex(2);
+            clearPackageFields();
+        }
+    }//GEN-LAST:event_lbl_managePackageMouseClicked
+
+    private void lbl_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoutMouseClicked
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Confirm Logout?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            txt_staffid.setText("Staff id");
+            txt_role.setText("Staff role");
+            WelcomeForm wf = new WelcomeForm();
+            wf.setVisible(true);
+            this.hide();
+        }
+    }//GEN-LAST:event_lbl_logoutMouseClicked
+
+    private void lbl_manageStaffaccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageStaffaccMouseClicked
+        // TODO add your handling code here:
+        if(role == 0){
+            TabbedPane.setSelectedIndex(6);
+            DisplayStaffInfo();
+            clearStaffFields();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_lbl_manageStaffaccMouseClicked
+
+    private void lbl_guestCheckioutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckioutMouseClicked
+        // TODO add your handling code here:
+        TabbedPane.setSelectedIndex(5);
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String currentDate = LocalDate.now().format(dateFormat);
+        txt_checkOutDate.setText(currentDate);
+        DisplayRoomReservedData();
+    }//GEN-LAST:event_lbl_guestCheckioutMouseClicked
+
+    private void lbl_guestCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckinMouseClicked
+        // TODO add your handling code here:
+        TabbedPane.setSelectedIndex(4);
+        txt_cusID.setText(generateCustomerID());
+        sameRReservedID = generateRReservedID();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String currentDate = LocalDate.now().format(dateFormat);
+        txt_cusCheckinDate.setText(currentDate);
+        cbox_roomTypes.removeAllItems();
+        cbox_roomDecs.removeAllItems();
+        cbox_roomBeds.removeAllItems();
+        cbox_roomNos.removeAllItems();
+
+        try{
+            Connection con = connect();
+            String sql = "Select distinct room_type from room";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                cbox_roomTypes.addItem(rs.getString("room_type"));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_lbl_guestCheckinMouseClicked
+
+    private void lbl_manageRoomBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomBookingMouseClicked
+        // TODO add your handling code here:
+        TabbedPane.setSelectedIndex(3);
+        clearBookingData();
+    }//GEN-LAST:event_lbl_manageRoomBookingMouseClicked
+
+    private void lbl_manageRoomsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomsMouseClicked
+        // TODO add your handling code here:
+        if(role != 0){
+            JOptionPane.showMessageDialog(null, "Only Manager can access to this Operation.", "Not Allowed Access", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            TabbedPane.setSelectedIndex(1);
+            clearRoomFields();
+        }
+    }//GEN-LAST:event_lbl_manageRoomsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -3715,13 +3776,10 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -3745,8 +3803,11 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel panel_guestCheckIn;
     private javax.swing.JPanel panel_guestCheckOut;
     private javax.swing.JPanel panel_manageBookings;
+    private javax.swing.JPanel panel_managePackLbl;
     private javax.swing.JPanel panel_managePackages;
     private javax.swing.JPanel panel_manageRooms;
+    private javax.swing.JPanel panel_manageRoomsLbl;
+    private javax.swing.JPanel panel_manageStaffLbl;
     private javax.swing.JPanel panel_manageStaffacc;
     private javax.swing.JRadioButton rbtn_female;
     private javax.swing.JRadioButton rbtn_male;

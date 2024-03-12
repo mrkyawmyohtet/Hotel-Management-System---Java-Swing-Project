@@ -95,8 +95,9 @@ public class WelcomeForm extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_login.setBackground(new java.awt.Color(255, 255, 255));
-        btn_login.setForeground(new java.awt.Color(0, 0, 0));
+        btn_login.setBackground(new java.awt.Color(0, 0, 0));
+        btn_login.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_login.setForeground(new java.awt.Color(255, 255, 255));
         btn_login.setText("STAFF LOG IN");
         btn_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_login.addActionListener(new java.awt.event.ActionListener() {

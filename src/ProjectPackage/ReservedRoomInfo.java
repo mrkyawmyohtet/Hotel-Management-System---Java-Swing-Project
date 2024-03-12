@@ -137,7 +137,7 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Your Booked Rooms...");
+        jLabel1.setText("Your Listed Rooms...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -178,7 +178,7 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
         jLabel2.setText("You can modify your  reservation");
 
         btn_bookMore.setBackground(new java.awt.Color(255, 204, 0));
-        btn_bookMore.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btn_bookMore.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         btn_bookMore.setForeground(new java.awt.Color(255, 255, 255));
         btn_bookMore.setText("Book More Rooms");
         btn_bookMore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -188,8 +188,8 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
             }
         });
 
-        btn_remove.setBackground(new java.awt.Color(204, 51, 0));
-        btn_remove.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btn_remove.setBackground(new java.awt.Color(0, 0, 0));
+        btn_remove.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         btn_remove.setForeground(new java.awt.Color(255, 255, 255));
         btn_remove.setText("Remove From Booking List");
         btn_remove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -207,8 +207,8 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
         lbl_roomType.setForeground(new java.awt.Color(0, 0, 0));
         lbl_roomType.setText("Room Type");
 
-        btn_fillInfo.setBackground(new java.awt.Color(102, 204, 0));
-        btn_fillInfo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btn_fillInfo.setBackground(new java.awt.Color(255, 204, 0));
+        btn_fillInfo.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         btn_fillInfo.setForeground(new java.awt.Color(255, 255, 255));
         btn_fillInfo.setText("Fill Required Information to Confirm Reservation");
         btn_fillInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -224,7 +224,7 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 576, Short.MAX_VALUE))
+                .addGap(0, 606, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)

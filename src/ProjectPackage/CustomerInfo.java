@@ -701,15 +701,15 @@ public class CustomerInfo extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 590, 405, 140));
 
-        btn_Cancel.setBackground(new java.awt.Color(204, 0, 51));
-        btn_Cancel.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btn_Cancel.setBackground(new java.awt.Color(0, 0, 0));
+        btn_Cancel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btn_Cancel.setForeground(new java.awt.Color(255, 255, 255));
         btn_Cancel.setText("Cancel Booking");
         btn_Cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(btn_Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 760, 194, 46));
 
-        btn_confirm.setBackground(new java.awt.Color(102, 204, 0));
-        btn_confirm.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btn_confirm.setBackground(new java.awt.Color(255, 204, 0));
+        btn_confirm.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btn_confirm.setForeground(new java.awt.Color(255, 255, 255));
         btn_confirm.setText("Confirm Your Booking");
         btn_confirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -718,10 +718,10 @@ public class CustomerInfo extends javax.swing.JFrame {
                 btn_confirmActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 760, 194, 46));
+        jPanel1.add(btn_confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 760, 200, 46));
 
-        btn_reviewRooms.setBackground(new java.awt.Color(102, 0, 102));
-        btn_reviewRooms.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btn_reviewRooms.setBackground(new java.awt.Color(0, 0, 0));
+        btn_reviewRooms.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btn_reviewRooms.setForeground(new java.awt.Color(255, 255, 255));
         btn_reviewRooms.setText("Check Your Reserved Rooms Again");
         btn_reviewRooms.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
