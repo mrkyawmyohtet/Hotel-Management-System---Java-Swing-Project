@@ -1137,6 +1137,8 @@ public class DashBoard extends javax.swing.JFrame {
         panel_manageRooms.setBackground(new java.awt.Color(255, 255, 255));
         panel_manageRooms.setForeground(new java.awt.Color(0, 0, 0));
 
+        roomTable.setBackground(new java.awt.Color(255, 255, 255));
+        roomTable.setForeground(new java.awt.Color(0, 0, 0));
         roomTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1388,6 +1390,8 @@ public class DashBoard extends javax.swing.JFrame {
         panel_managePackages.setBackground(new java.awt.Color(255, 255, 255));
         panel_managePackages.setForeground(new java.awt.Color(0, 0, 0));
 
+        table_packages.setBackground(new java.awt.Color(255, 255, 255));
+        table_packages.setForeground(new java.awt.Color(0, 0, 0));
         table_packages.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1396,6 +1400,8 @@ public class DashBoard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_packages.setSelectionBackground(new java.awt.Color(5, 124, 124));
+        table_packages.setSelectionForeground(new java.awt.Color(255, 255, 255));
         table_packages.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_packagesMouseClicked(evt);
@@ -1978,9 +1984,9 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt_roomPriceCheckIn)
                         .addComponent(btn_allocateRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                        .addComponent(cbox_roomDecs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_addToList, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                        .addComponent(btn_addToList, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addComponent(cbox_roomDecs, 0, 253, Short.MAX_VALUE)))
+                .addGap(177, 177, 177))
         );
         panel_guestCheckInLayout.setVerticalGroup(
             panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2069,6 +2075,8 @@ public class DashBoard extends javax.swing.JFrame {
         panel_guestCheckOut.setBackground(new java.awt.Color(255, 255, 255));
         panel_guestCheckOut.setForeground(new java.awt.Color(0, 0, 0));
 
+        table_rReservedData.setBackground(new java.awt.Color(255, 255, 255));
+        table_rReservedData.setForeground(new java.awt.Color(0, 0, 0));
         table_rReservedData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2077,6 +2085,8 @@ public class DashBoard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_rReservedData.setSelectionBackground(new java.awt.Color(5, 124, 124));
+        table_rReservedData.setSelectionForeground(new java.awt.Color(255, 255, 255));
         table_rReservedData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_rReservedDataMouseClicked(evt);
@@ -2398,6 +2408,8 @@ public class DashBoard extends javax.swing.JFrame {
         panel_manageStaffacc.setBackground(new java.awt.Color(255, 255, 255));
         panel_manageStaffacc.setForeground(new java.awt.Color(0, 0, 0));
 
+        table_staffAcc.setBackground(new java.awt.Color(255, 255, 255));
+        table_staffAcc.setForeground(new java.awt.Color(0, 0, 0));
         table_staffAcc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2406,6 +2418,8 @@ public class DashBoard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_staffAcc.setSelectionBackground(new java.awt.Color(5, 124, 124));
+        table_staffAcc.setSelectionForeground(new java.awt.Color(255, 255, 255));
         table_staffAcc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_staffAccMouseClicked(evt);
@@ -3115,7 +3129,7 @@ public class DashBoard extends javax.swing.JFrame {
                     String cusContact = txt_cusContact.getText();
                     String checkInDate = txt_cusCheckinDate.getText();
                     if(Pattern.matches("^(0|[1-9][0-9]*)$", cusAge)){
-                        if(Pattern.matches("\\+959\\d*", cusContact)){
+                        if(Pattern.matches("(\\+959|09)\\d*", cusContact)){
                             if(selectedRoomIDs.isEmpty()){
                                 try{
                                     Connection con = connect();

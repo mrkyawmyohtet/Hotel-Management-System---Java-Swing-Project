@@ -41,7 +41,6 @@ public class ViewRooms extends javax.swing.JFrame {
      */
     public ViewRooms() {
         initComponents();
-//        display();
         
         //to get the columns' names into the combobox
         Connection con = connect();
@@ -183,44 +182,6 @@ public class ViewRooms extends javax.swing.JFrame {
         }
         return availableRooms;
     }
-    
-//    //get the date as argument and check which rooms are free on that day
-//    public int checkBookedRow(String date){
-//        Connection con = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        int rowCount = 0;
-//        try{
-//            con = connect();
-//            String sql = "select count(*) as row_count from room_bookings";
-//            ps = con.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            if(rs.next()){
-//                rowCount = rs.getInt("row_count");
-//            }
-//            
-//            if(rowCount == 0){
-//                //return null;
-//            }
-//            else{
-//                
-//            }
-//        }
-//        catch(SQLException e){
-//            e.printStackTrace();
-//        }
-//        finally{
-//            try{
-//                rs.close();
-//                ps.close();
-//                con.close();  
-//            }
-//            catch(SQLException e){
-//                e.printStackTrace();
-//            }
-//        }
-//        return 0;
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -266,8 +227,9 @@ public class ViewRooms extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 204, 0));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 34)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Trajan Pro", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagesandIcons/icons8-search-50.png"))); // NOI18N
         jLabel1.setText("Please, take a look at our rooms depending on your need....");
         jLabel1.setIconTextGap(10);
@@ -278,7 +240,7 @@ public class ViewRooms extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1074, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -302,6 +264,8 @@ public class ViewRooms extends javax.swing.JFrame {
 
             }
         ));
+        table_rooms.setSelectionBackground(new java.awt.Color(5, 124, 124));
+        table_rooms.setSelectionForeground(new java.awt.Color(255, 255, 255));
         table_rooms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_roomsMouseClicked(evt);
@@ -394,6 +358,11 @@ public class ViewRooms extends javax.swing.JFrame {
         btn_packages.setForeground(new java.awt.Color(255, 255, 255));
         btn_packages.setText("Check Event Packages");
         btn_packages.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_packages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_packagesActionPerformed(evt);
+            }
+        });
 
         cbox_searchRoom.setBackground(new java.awt.Color(255, 255, 255));
         cbox_searchRoom.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -424,7 +393,7 @@ public class ViewRooms extends javax.swing.JFrame {
         btn_checkAvailability.setBackground(new java.awt.Color(255, 204, 0));
         btn_checkAvailability.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_checkAvailability.setForeground(new java.awt.Color(255, 255, 255));
-        btn_checkAvailability.setText("Check Availability");
+        btn_checkAvailability.setText("Check Available Room");
         btn_checkAvailability.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_checkAvailability.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,7 +437,7 @@ public class ViewRooms extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_bookNow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_viewReserved, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .addComponent(btn_viewReserved, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
                     .addComponent(lbl_roomType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_roomNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -777,6 +746,13 @@ public class ViewRooms extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) table_rooms.getModel();
         model.setRowCount(0); // Clear all rows from the table
     }//GEN-LAST:event_booking_datechooserPropertyChange
+
+    private void btn_packagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_packagesActionPerformed
+        // TODO add your handling code here:
+        ViewPackages vp = new ViewPackages();
+        vp.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_btn_packagesActionPerformed
 
     /**
      * @param args the command line arguments

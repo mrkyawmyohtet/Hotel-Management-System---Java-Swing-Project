@@ -45,7 +45,7 @@ public class WelcomeForm extends javax.swing.JFrame {
             PreparedStatement ps3 = con.prepareStatement(sql3);
             ps3.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "System Ready");
+//            JOptionPane.showMessageDialog(null, "System Ready");
         }
         catch(Exception e){
             e.printStackTrace();
