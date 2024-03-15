@@ -112,7 +112,7 @@ public class ViewRooms extends javax.swing.JFrame {
             table_rooms.setModel(DbUtils.resultSetToTableModel(rs));
             } else {
                 // No available rooms, display an empty table
-                JOptionPane.showMessageDialog(null, "There is no room for your preference at the moment!", "No room Available", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "There is no room for your preference at the moment!\nThanks for your understanding.", "No room Available", JOptionPane.INFORMATION_MESSAGE);
                 table_rooms.setModel(new DefaultTableModel());
             }
         } catch (SQLException e) {
@@ -586,7 +586,7 @@ public class ViewRooms extends javax.swing.JFrame {
 
     private void btn_viewReservedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewReservedActionPerformed
         // TODO add your handling code here:
-        ReservedRoomInfo RRI = new ReservedRoomInfo();
+        ListedRoomInfo RRI = new ListedRoomInfo();
         RRI.setVisible(true);
         this.hide();
     }//GEN-LAST:event_btn_viewReservedActionPerformed

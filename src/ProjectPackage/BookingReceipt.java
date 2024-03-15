@@ -24,16 +24,19 @@ public class BookingReceipt extends javax.swing.JFrame {
     /**
      * Creates new form Receipt
      */
-    
+    private int source;
     private String booking_id;
+    private String pbooking_id;
     public BookingReceipt() {
         initComponents();
         display();
     }
     
-    public BookingReceipt(String booking_id) {
+    public BookingReceipt(String booking_id, int source) {
         initComponents();
         this.booking_id = booking_id;
+        this.pbooking_id = booking_id;
+        this.source = source;
         display();
     }
     
@@ -58,15 +61,29 @@ public class BookingReceipt extends javax.swing.JFrame {
         ResultSet rs = null;
         try{
             con = connect();
-            String sql = "SELECT booking_id, GROUP_CONCAT(room_id) AS room_ids, cus_id, booking_date, stay_period FROM room_bookings WHERE booking_id = ? GROUP BY booking_id, cus_id, booking_date, stay_period";
-            ps = con.prepareStatement(sql);
-            ps.setString(1, booking_id);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                lbl_bookingId.setText("Booking ID: " + rs.getString("booking_id"));
-                lbl_cusId.setText("Customer ID: " +rs.getString("cus_id"));
-                lbl_roomId.setText("Room IDs: " +rs.getString("room_ids"));
-                lbl_bookingDate.setText("Booking Date: " +rs.getString("booking_date"));
+            if(source == 1){
+                String sql = "SELECT booking_id, GROUP_CONCAT(room_id) AS room_ids, cus_id, booking_date, stay_period FROM room_bookings WHERE booking_id = ? GROUP BY booking_id, cus_id, booking_date, stay_period";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, booking_id);
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    lbl_bookingId.setText("Booking ID: " + rs.getString("booking_id"));
+                    lbl_cusId.setText("Customer ID: " +rs.getString("cus_id"));
+                    lbl_roomId.setText("Room IDs: " +rs.getString("room_ids"));
+                    lbl_bookingDate.setText("Booking Date: " +rs.getString("booking_date"));
+                }
+            }
+            else if(source == 2){
+                String sql = "select pbooking_id, GROUP_CONCAT(package_id) as package_ids, cus_id, booking_date, people_count from package_bookings where pbooking_id = ? GROUP BY pbooking_id, cus_id, booking_date, people_count";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, pbooking_id);
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    lbl_bookingId.setText("Booking ID: " + rs.getString("pbooking_id"));
+                    lbl_cusId.setText("Customer ID: " + rs.getString("cus_id"));
+                    lbl_roomId.setText("Package IDs: " + rs.getString("package_ids"));
+                    lbl_bookingDate.setText("Booking Date: " + rs.getString("booking_date") + "\t\tPeople Count: " + rs.getString("people_count"));
+                }
             }
         }
         catch(SQLException e){

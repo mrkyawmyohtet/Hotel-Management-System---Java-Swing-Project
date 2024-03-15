@@ -34,12 +34,23 @@ public class CustomerInfo extends javax.swing.JFrame {
      * Creates new form CustomerInfo
      */
     
+    public static final int FROM_ROOM = 1;
+    public static final int FROM_PACKAGE = 2;
+    private int source;
     public CustomerInfo() {
         initComponents();
         EmptyValidate();
         Validate();
         displayNRC();
         
+    }
+    
+    public CustomerInfo(int source){
+        initComponents();
+        this.source = source;
+        EmptyValidate();
+        Validate();
+        displayNRC();
     }
     
     public Connection connect()
@@ -447,6 +458,16 @@ public class CustomerInfo extends javax.swing.JFrame {
             return 0; // Return a default value in case of an error
         }
     }
+    
+    private static int extractNumericPartForTwoCharacterID(String id) {
+        try {
+            return Integer.parseInt(id.substring(2)); // Skip the first character 'C'
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return 0; // Return a default value in case of an error
+        }
+    }
+    
     public String generateID(){
         int currentMaxId = getCurrentMaxID();
         int counter = currentMaxId + 1;
@@ -476,10 +497,39 @@ public class CustomerInfo extends javax.swing.JFrame {
         return 0;
     }
     
+    //for booking id
+    public int getCurrentMaxPBookingID(){
+        try{
+            Connection con = connect();
+            String sql = "SELECT MAX(pbooking_id) AS max_id FROM package_bookings";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            try{
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()){
+                    String maxID = rs.getString("max_id");
+                    return maxID != null ? extractNumericPartForTwoCharacterID(maxID) : 0;
+                }
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
     public String generateBookingID(){
         int currentMaxId = getCurrentMaxBookingID();
         int counter = currentMaxId + 1;
         return String.format("B%06d", counter);
+    }
+    
+    public String generatePBookingID(){
+        int currentMaxId = getCurrentMaxPBookingID();
+        int counter = currentMaxId + 1;
+        return String.format("PB%06d", counter);
     }
     
     public String[] getTempIDs(){
@@ -527,6 +577,28 @@ public class CustomerInfo extends javax.swing.JFrame {
             // Handle exception
         }
         return roomBookingData;
+    }
+    
+    public List<Object> getPackageBookingDataForTempId(String tempId) {
+        List<Object> packageBookingData = new ArrayList<>();
+        try{
+            Connection con = connect();
+            PreparedStatement ps = con.prepareStatement("SELECT package_id, booking_date, people_count FROM reserved_temp WHERE temp_id = ?");
+            ps.setString(1, tempId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String packageId = rs.getString("package_id");
+                Date bookingDate = rs.getDate("booking_date");
+                int peopleCount = rs.getInt("people_count");
+                packageBookingData.add(packageId);
+                packageBookingData.add(bookingDate);
+                packageBookingData.add(peopleCount);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+        return packageBookingData;
     }
 
     /**
@@ -985,7 +1057,7 @@ public class CustomerInfo extends javax.swing.JFrame {
 
     private void btn_reviewRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reviewRoomsActionPerformed
         // TODO add your handling code here:
-        ReservedRoomInfo RRI = new ReservedRoomInfo();
+        ListedRoomInfo RRI = new ListedRoomInfo();
         RRI.setVisible(true);
         this.hide();
     }//GEN-LAST:event_btn_reviewRoomsActionPerformed
@@ -1011,6 +1083,7 @@ public class CustomerInfo extends javax.swing.JFrame {
             String Phnum = txt_conNum.getText().toString();
             String customer_id = generateID();
             String booking_id = generateBookingID();
+            String pbooking_id = generatePBookingID();
             if(rbtn_local.isSelected()){
                 String passport = null;
                 String NRC = cbox_NRC_code.getSelectedItem().toString() + cbox_NRC_post.getSelectedItem().toString() + cbox_NRC_type.getSelectedItem().toString() + txt_NRC.getText().toString();
@@ -1028,37 +1101,77 @@ public class CustomerInfo extends javax.swing.JFrame {
                     ps.setString(7, passport);
                     ps.execute();
                     
-                    //second step: insert reserved rooms data along with customer_id into room_bookings table
                     String[] tempids = getTempIDs(); //for every row in temp table, insert the data into the booking table
-                    String bookSql = "insert into room_bookings (booking_id, room_id, cus_id, booking_date, stay_period) values (?, ?, ?, ?, ?)";
-                    String updateSql = "update room set status = 'Booked' where room_id = ?";
-                    for(String tempid : tempids){
-                        List<Object> roomBookingData = getRoomBookingDataForTempId(tempid);
-                        if(!roomBookingData.isEmpty()){
-                            String room_id = (String) roomBookingData.get(0);
-                            Date booking_date = (Date) roomBookingData.get(1);
-                            int stay_period = (int) roomBookingData.get(2);
-                            
-                            PreparedStatement bookPs = con.prepareStatement(bookSql);
-                            bookPs.setString(1, booking_id);
-                            bookPs.setString(2, room_id);
-                            bookPs.setString(3, customer_id);
-                            bookPs.setDate(4, (java.sql.Date) booking_date);
-                            bookPs.setInt(5, stay_period);
-                            bookPs.execute();
-                            
-                            PreparedStatement updatePs = con.prepareStatement(updateSql);
-                            updatePs.setString(1, room_id);
-                            updatePs.executeUpdate();
+                    if(source == FROM_ROOM){
+                        //second step: insert reserved rooms data along with customer_id into room_bookings table
+                        String bookSql = "insert into room_bookings (booking_id, room_id, cus_id, booking_date, stay_period) values (?, ?, ?, ?, ?)";
+                        String updateSql = "update room set status = 'Booked' where room_id = ?";
+                        for(String tempid : tempids){
+                            List<Object> roomBookingData = getRoomBookingDataForTempId(tempid);
+                            if(!roomBookingData.isEmpty()){
+                                String room_id = (String) roomBookingData.get(0);
+                                Date booking_date = (Date) roomBookingData.get(1);
+                                int stay_period = (int) roomBookingData.get(2);
+
+                                PreparedStatement bookPs = con.prepareStatement(bookSql);
+                                bookPs.setString(1, booking_id);
+                                bookPs.setString(2, room_id);
+                                bookPs.setString(3, customer_id);
+                                bookPs.setDate(4, (java.sql.Date) booking_date);
+                                bookPs.setInt(5, stay_period);
+                                bookPs.execute();
+
+                                PreparedStatement updatePs = con.prepareStatement(updateSql);
+                                updatePs.setString(1, room_id);
+                                updatePs.executeUpdate();
+                            }
                         }
+
+                        //third step: deleted data in reserved_temp table;
+                        String deleteTempSql = "delete from reserved_temp";
+                        PreparedStatement deleteTempPs = con.prepareStatement(deleteTempSql);
+                        deleteTempPs.execute();
+                        
+                        JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        BookingReceipt br = new BookingReceipt(booking_id, FROM_ROOM);
+                        br.setVisible(true);
+                        this.hide();
+                    }
+                    else if(source == FROM_PACKAGE){
+                        String bookSql = "insert into package_bookings (pbooking_id, package_id, cus_id, booking_date, people_count) values (?, ?, ?, ?, ?)";
+                        String updateSql = "update packages set status = 'Booked' where package_id = ?";
+                        for(String tempid : tempids){
+                            List<Object> packageBookingData = getPackageBookingDataForTempId(tempid);
+                            if(!packageBookingData.isEmpty()){
+                                String packageid = (String) packageBookingData.get(0);
+                                Date bookingdate = (Date) packageBookingData.get(1);
+                                int peopleCount = (int) packageBookingData.get(2);
+                                
+                                PreparedStatement bookPs = con.prepareStatement(bookSql);
+                                bookPs.setString(1, pbooking_id);
+                                bookPs.setString(2, packageid);
+                                bookPs.setString(3, customer_id);
+                                bookPs.setDate(4, (java.sql.Date) bookingdate);
+                                bookPs.setInt(5, peopleCount);
+                                bookPs.executeUpdate();
+                                
+                                PreparedStatement updatePs = con.prepareStatement(updateSql);
+                                updatePs.setString(1, packageid);
+                                updatePs.execute();
+                            }
+                        }
+                        
+                        String deleteTempSql = "delete from reserved_temp";
+                        PreparedStatement deleteTempPs = con.prepareStatement(deleteTempSql);
+                        deleteTempPs.execute();
+                        
+                        JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        BookingReceipt br = new BookingReceipt(pbooking_id, FROM_PACKAGE);
+                        br.setVisible(true);
+                        this.hide();
                     }
                     
-                    //third step: deleted data in reserved_temp table;
-                    String deleteTempSql = "delete from reserved_temp";
-                    PreparedStatement deleteTempPs = con.prepareStatement(deleteTempSql);
-                    deleteTempPs.execute();
                     
-                    JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -1083,43 +1196,78 @@ public class CustomerInfo extends javax.swing.JFrame {
                     
                     //second step: insert reserved rooms data along with customer_id into room_bookings table
                     String[] tempids = getTempIDs(); //for every row in temp table, insert the data into the booking table
-                    String bookSql = "insert into room_bookings (booking_id, room_id, cus_id, booking_date, stay_period) values (?, ?, ?, ?, ?)";
-                    String updateSql = "update room set status = 'Booked' where room_id = ?";
-                    for(String tempid : tempids){
-                        List<Object> roomBookingData = getRoomBookingDataForTempId(tempid);
-                        if(!roomBookingData.isEmpty()){
-                            String room_id = (String) roomBookingData.get(0);
-                            Date booking_date = (Date) roomBookingData.get(1);
-                            int stay_period = (int) roomBookingData.get(2);
-                            
-                            PreparedStatement bookPs = con.prepareStatement(bookSql);
-                            bookPs.setString(1, booking_id);
-                            bookPs.setString(2, room_id);
-                            bookPs.setString(3, customer_id);
-                            bookPs.setDate(4, (java.sql.Date) booking_date);
-                            bookPs.setInt(5, stay_period);
-                            bookPs.execute();
-                            
-                            PreparedStatement updatePs = con.prepareStatement(updateSql);
-                            updatePs.setString(1, room_id);
-                            updatePs.executeUpdate();
+                    if(source == FROM_ROOM){
+                        String bookSql = "insert into room_bookings (booking_id, room_id, cus_id, booking_date, stay_period) values (?, ?, ?, ?, ?)";
+                        String updateSql = "update room set status = 'Booked' where room_id = ?";
+                        for(String tempid : tempids){
+                            List<Object> roomBookingData = getRoomBookingDataForTempId(tempid);
+                            if(!roomBookingData.isEmpty()){
+                                String room_id = (String) roomBookingData.get(0);
+                                Date booking_date = (Date) roomBookingData.get(1);
+                                int stay_period = (int) roomBookingData.get(2);
+
+                                PreparedStatement bookPs = con.prepareStatement(bookSql);
+                                bookPs.setString(1, booking_id);
+                                bookPs.setString(2, room_id);
+                                bookPs.setString(3, customer_id);
+                                bookPs.setDate(4, (java.sql.Date) booking_date);
+                                bookPs.setInt(5, stay_period);
+                                bookPs.execute();
+
+                                PreparedStatement updatePs = con.prepareStatement(updateSql);
+                                updatePs.setString(1, room_id);
+                                updatePs.executeUpdate();  
+                            }
                         }
+
+                        //third step: deleted data in reserved_temp table;
+                        String deleteTempSql = "delete from reserved_temp";
+                        PreparedStatement deleteTempPs = con.prepareStatement(deleteTempSql);
+                        deleteTempPs.execute();
+                        
+                        JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        BookingReceipt br = new BookingReceipt(booking_id, FROM_ROOM);
+                        br.setVisible(true);
+                        this.hide();
                     }
-                    
-                    //third step: deleted data in reserved_temp table;
-                    String deleteTempSql = "delete from reserved_temp";
-                    PreparedStatement deleteTempPs = con.prepareStatement(deleteTempSql);
-                    deleteTempPs.execute();
-                    
-                    JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    else if(source == FROM_PACKAGE){
+                        String bookSql = "insert into package_bookings (pbooking_id, package_id, cus_id, booking_date, people_count) values (?, ?, ?, ?, ?)";
+                        String updateSql = "update packages set status = 'Booked' where package_id = ?";
+                        for(String tempid : tempids){
+                            List<Object> packageBookingData = getPackageBookingDataForTempId(tempid);
+                            if(!packageBookingData.isEmpty()){
+                                String packageid = (String) packageBookingData.get(0);
+                                Date bookingdate = (Date) packageBookingData.get(1);
+                                int peopleCount = (int) packageBookingData.get(2);
+                                
+                                PreparedStatement bookPs = con.prepareStatement(bookSql);
+                                bookPs.setString(1, pbooking_id);
+                                bookPs.setString(2, packageid);
+                                bookPs.setString(3, customer_id);
+                                bookPs.setDate(4, (java.sql.Date) bookingdate);
+                                bookPs.setInt(5, peopleCount);
+                                bookPs.executeUpdate();
+                                
+                                PreparedStatement updatePs = con.prepareStatement(updateSql);
+                                updatePs.setString(1, packageid);
+                                updatePs.execute(); 
+                            }
+                        }
+                        
+                        String deleteTempSql = "delete from reserved_temp";
+                        PreparedStatement deleteTempPs = con.prepareStatement(deleteTempSql);
+                        deleteTempPs.execute();
+                        
+                        JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        BookingReceipt br = new BookingReceipt(booking_id, FROM_PACKAGE);
+                        br.setVisible(true);
+                        this.hide();
+                    }
                 }
                 catch(Exception e){
                     e.printStackTrace();
                 }
             }
-            BookingReceipt br = new BookingReceipt(booking_id);
-            br.setVisible(true);
-            this.hide();
         }
     }//GEN-LAST:event_btn_confirmActionPerformed
 

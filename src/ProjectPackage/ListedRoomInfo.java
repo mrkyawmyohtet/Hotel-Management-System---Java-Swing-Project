@@ -20,12 +20,12 @@ import net.proteanit.sql.DbUtils;
  *
  * @author DELL
  */
-public class ReservedRoomInfo extends javax.swing.JFrame {
+public class ListedRoomInfo extends javax.swing.JFrame {
 
     /**
      * Creates new form ReservedRoomInfo
      */
-    public ReservedRoomInfo() {
+    public ListedRoomInfo() {
         initComponents();
         display();
     }
@@ -178,10 +178,10 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("You can modify your  reservation");
+        jLabel2.setText("You can modify your  list");
 
         btn_bookMore.setBackground(new java.awt.Color(255, 204, 0));
-        btn_bookMore.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btn_bookMore.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         btn_bookMore.setForeground(new java.awt.Color(255, 255, 255));
         btn_bookMore.setText("Book More Rooms");
         btn_bookMore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -192,7 +192,7 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
         });
 
         btn_remove.setBackground(new java.awt.Color(0, 0, 0));
-        btn_remove.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btn_remove.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         btn_remove.setForeground(new java.awt.Color(255, 255, 255));
         btn_remove.setText("Remove From Booking List");
         btn_remove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -202,18 +202,18 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
             }
         });
 
-        lbl_roomNo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_roomNo.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         lbl_roomNo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_roomNo.setText("Room Number");
 
-        lbl_roomType.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_roomType.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         lbl_roomType.setForeground(new java.awt.Color(0, 0, 0));
         lbl_roomType.setText("Room Type");
 
         btn_fillInfo.setBackground(new java.awt.Color(255, 204, 0));
-        btn_fillInfo.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btn_fillInfo.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         btn_fillInfo.setForeground(new java.awt.Color(255, 255, 255));
-        btn_fillInfo.setText("Fill Required Information to Confirm Reservation");
+        btn_fillInfo.setText("Fill Required Information to Confirm Booking");
         btn_fillInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_fillInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,16 +233,18 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btn_bookMore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_remove, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_roomNo)
-                    .addComponent(lbl_roomType)
-                    .addComponent(btn_fillInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btn_bookMore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_remove, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_roomNo)
+                            .addComponent(lbl_roomType)
+                            .addComponent(btn_fillInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(170, 170, 170))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +255,7 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(14, 14, 14)
                         .addComponent(lbl_roomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addComponent(lbl_roomType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +293,8 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
             this.hide();
         }
         else{
-            CustomerInfo Cusinfo = new CustomerInfo();
+            int FROM_ROOM = 1;
+            CustomerInfo Cusinfo = new CustomerInfo(FROM_ROOM);
             Cusinfo.setVisible(true);
             this.hide();
         }       
@@ -371,20 +374,21 @@ public class ReservedRoomInfo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReservedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReservedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReservedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReservedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListedRoomInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReservedRoomInfo().setVisible(true);
+                new ListedRoomInfo().setVisible(true);
             }
         });
     }
