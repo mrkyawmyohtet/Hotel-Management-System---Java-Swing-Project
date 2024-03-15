@@ -133,12 +133,9 @@ public class ViewPackages extends javax.swing.JFrame {
     }
     
     public void clearFields(){
-        lbl_packageName.setText("Package Name: ");
-        lbl_packageType.setText("Package Type: ");
-        lbl_packagePrice.setText("Package Price: ");
         lbl_packageImage.setText("Package Image");
         lbl_packageImage.setIcon(null);
-        txtArea_services.setText("Services");
+        txtArea_details.setText("Details:");
     }
 
     /**
@@ -163,11 +160,8 @@ public class ViewPackages extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table_packages = new javax.swing.JTable();
         lbl_packageImage = new javax.swing.JLabel();
-        lbl_packageName = new javax.swing.JLabel();
-        lbl_packageType = new javax.swing.JLabel();
-        lbl_packagePrice = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtArea_services = new javax.swing.JTextArea();
+        txtArea_details = new javax.swing.JTextArea();
         btn_bookPackage = new javax.swing.JButton();
         btn_viewBPList = new javax.swing.JButton();
 
@@ -266,25 +260,13 @@ public class ViewPackages extends javax.swing.JFrame {
         lbl_packageImage.setText("Package Image");
         lbl_packageImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lbl_packageName.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        lbl_packageName.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_packageName.setText("Package Name:");
-
-        lbl_packageType.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        lbl_packageType.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_packageType.setText("Package Type:");
-
-        lbl_packagePrice.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        lbl_packagePrice.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_packagePrice.setText("Package Price:");
-
-        txtArea_services.setBackground(new java.awt.Color(255, 255, 255));
-        txtArea_services.setColumns(20);
-        txtArea_services.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        txtArea_services.setForeground(new java.awt.Color(0, 0, 0));
-        txtArea_services.setRows(5);
-        txtArea_services.setText("Services");
-        jScrollPane2.setViewportView(txtArea_services);
+        txtArea_details.setBackground(new java.awt.Color(255, 255, 255));
+        txtArea_details.setColumns(20);
+        txtArea_details.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        txtArea_details.setForeground(new java.awt.Color(0, 0, 0));
+        txtArea_details.setRows(5);
+        txtArea_details.setText("Details");
+        jScrollPane2.setViewportView(txtArea_details);
 
         btn_bookPackage.setBackground(new java.awt.Color(255, 204, 0));
         btn_bookPackage.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
@@ -336,10 +318,7 @@ public class ViewPackages extends javax.swing.JFrame {
                         .addComponent(lbl_packageImage, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_packageName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_packageType, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                            .addComponent(lbl_packagePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                             .addComponent(btn_bookPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_viewBPList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -373,13 +352,7 @@ public class ViewPackages extends javax.swing.JFrame {
                             .addComponent(lbl_packageImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(26, 26, 26))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_packageName, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_packageType, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_packagePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_bookPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -454,14 +427,15 @@ public class ViewPackages extends javax.swing.JFrame {
             while(rs.next()){
                 String imageName = rs.getString("image_name");
                 ImageIcon icon = new ImageIcon(getClass().getResource("/ImagesandIcons/" + imageName));
-                icon = new ImageIcon(icon.getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH));
+                icon = new ImageIcon(icon.getImage().getScaledInstance(450, 500, Image.SCALE_SMOOTH));
                 lbl_packageImage.setText("");
                 lbl_packageImage.setIcon(icon);
                 
-                lbl_packageName.setText("Package Name: " + rs.getString("package_name"));
-                lbl_packageType.setText("Package Type: " + rs.getString("package_type"));
-                lbl_packagePrice.setText("Package Price: " + rs.getString("package_price") + " per Day");
-                txtArea_services.setText("Services: \n" + rs.getString("services"));
+                txtArea_details.setText("Details:" +
+                        "\nPackage Name: \n" + rs.getString("package_name") + 
+                        "\n\nPackage Type: \n" + rs.getString("package_type") +
+                        "\n\nPackage Price: \n" + rs.getString("package_price") + " per Day" +
+                        "\n\nServices: \n" + rs.getString("services"));
             }
         }
         catch(Exception e){
@@ -641,10 +615,7 @@ public class ViewPackages extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private com.toedter.calendar.JDateChooser jdc_packageAvaiDate;
     private javax.swing.JLabel lbl_packageImage;
-    private javax.swing.JLabel lbl_packageName;
-    private javax.swing.JLabel lbl_packagePrice;
-    private javax.swing.JLabel lbl_packageType;
     private javax.swing.JTable table_packages;
-    private javax.swing.JTextArea txtArea_services;
+    private javax.swing.JTextArea txtArea_details;
     // End of variables declaration//GEN-END:variables
 }

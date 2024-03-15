@@ -350,10 +350,10 @@ public class ViewRooms extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 0, 153));
+        jLabel2.setForeground(new java.awt.Color(5, 124, 124));
         jLabel2.setText("Or Planing for an Occasion?");
 
-        btn_packages.setBackground(new java.awt.Color(153, 0, 153));
+        btn_packages.setBackground(new java.awt.Color(5, 124, 124));
         btn_packages.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btn_packages.setForeground(new java.awt.Color(255, 255, 255));
         btn_packages.setText("Check Event Packages");
