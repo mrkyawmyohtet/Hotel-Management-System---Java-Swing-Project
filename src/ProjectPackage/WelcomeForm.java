@@ -68,8 +68,6 @@ public class WelcomeForm extends javax.swing.JFrame {
             String deletePSql = "delete from package_bookings where STR_TO_DATE(booking_date, '%Y-%m-%d') < CURDATE()";
             PreparedStatement deletePPs = con.prepareStatement(deletePSql);
             deletePPs.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "System Ready");
         }
         catch(Exception e){
             e.printStackTrace();

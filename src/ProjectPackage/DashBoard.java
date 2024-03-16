@@ -282,6 +282,28 @@ public class DashBoard extends javax.swing.JFrame {
         return 0;
     }
     
+    public int getCurrentMaxPReservedID(){
+        try{
+            Connection con = connect();
+            String sql = "SELECT MAX(p_reserved_id) AS max_id FROM p_reserved_data";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            try{
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()){
+                    String maxID = rs.getString("max_id");
+                    return maxID != null ? extractNumericPartForTwoCharacter(maxID) : 0;
+                }
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
     //for Receipt ID
     public int getCurrentMaxReceiptID(){
         try{
@@ -369,6 +391,12 @@ public class DashBoard extends javax.swing.JFrame {
         return String.format("RR%06d", counter);
     }
     
+    public String generatePReservedID(){
+        int currentMaxId = getCurrentMaxPReservedID();
+        int counter = currentMaxId + 1;
+        return String.format("PR%06d", counter);
+    }
+    
     public String generateReceiptID(){
         int currentMaxId = getCurrentMaxReceiptID();
         int counter = currentMaxId + 1;
@@ -441,12 +469,20 @@ public class DashBoard extends javax.swing.JFrame {
         lbl_packageImage.setText("Package Image");
     }
     
-    public void clearBookingData(){
+    public void clearRBookingData(){
         txt_bookingID.setText("");
         txt_bookedRoomID.setText("");
         txt_bookedCusID.setText("");
         txt_bookingDate.setText("");
         txt_bookingStayPeriod.setText("");
+    }
+    
+    public void clearPBookingData(){
+        txt_packageBookingID.setText("");
+        txt_pBookedCusID.setText("");
+        txt_packageIds.setText("");
+        txt_pBookedDate.setText("");
+        txt_peopleCount.setText("");
     }
     
     public void clearCusFields(){
@@ -495,14 +531,6 @@ public class DashBoard extends javax.swing.JFrame {
         rbtn_manager.setSelected(false);
         rbtn_receptionist.setSelected(false);
         txt_staffPassword.setText("");
-    }
-    
-    public void clearPBookingFields(){
-        txt_packageBookingID.setText("");
-        txt_pBookedCusID.setText("");
-        txt_packageIds.setText("");
-        txt_pBookedDate.setText("");
-        txt_peopleCount.setText("");
     }
     
     public static int getDifferenceInDays(String date1, String date2) {
@@ -785,6 +813,7 @@ public class DashBoard extends javax.swing.JFrame {
         btn_searchPBooking = new javax.swing.JButton();
         btn_cancelPBooking = new javax.swing.JButton();
         btn_clearPBookingFields = new javax.swing.JButton();
+        btn_markAsPReserve = new javax.swing.JButton();
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
@@ -1733,21 +1762,19 @@ public class DashBoard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
                 .addContainerGap(166, Short.MAX_VALUE)
                 .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                            .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btn_searchBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_manageBookingsLayout.createSequentialGroup()
+                        .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_searchBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2737,7 +2764,7 @@ public class DashBoard extends javax.swing.JFrame {
         txt_peopleCount.setForeground(new java.awt.Color(0, 0, 0));
 
         btn_searchPBooking.setBackground(new java.awt.Color(5, 124, 124));
-        btn_searchPBooking.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btn_searchPBooking.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_searchPBooking.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchPBooking.setText("Search");
         btn_searchPBooking.addActionListener(new java.awt.event.ActionListener() {
@@ -2747,7 +2774,7 @@ public class DashBoard extends javax.swing.JFrame {
         });
 
         btn_cancelPBooking.setBackground(new java.awt.Color(5, 124, 124));
-        btn_cancelPBooking.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btn_cancelPBooking.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_cancelPBooking.setForeground(new java.awt.Color(255, 255, 255));
         btn_cancelPBooking.setText("Cancel Booking");
         btn_cancelPBooking.addActionListener(new java.awt.event.ActionListener() {
@@ -2760,6 +2787,21 @@ public class DashBoard extends javax.swing.JFrame {
         btn_clearPBookingFields.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_clearPBookingFields.setForeground(new java.awt.Color(255, 255, 255));
         btn_clearPBookingFields.setText("Clear Fields");
+        btn_clearPBookingFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearPBookingFieldsActionPerformed(evt);
+            }
+        });
+
+        btn_markAsPReserve.setBackground(new java.awt.Color(5, 124, 124));
+        btn_markAsPReserve.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_markAsPReserve.setForeground(new java.awt.Color(255, 255, 255));
+        btn_markAsPReserve.setText("Mark As Reserve");
+        btn_markAsPReserve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_markAsPReserveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_managePBookingLayout = new javax.swing.GroupLayout(panel_managePBooking);
         panel_managePBooking.setLayout(panel_managePBookingLayout);
@@ -2768,40 +2810,41 @@ public class DashBoard extends javax.swing.JFrame {
             .addGroup(panel_managePBookingLayout.createSequentialGroup()
                 .addGap(167, 167, 167)
                 .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_managePBookingLayout.createSequentialGroup()
-                        .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_pBookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_packageIds, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panel_managePBookingLayout.createSequentialGroup()
-                                .addComponent(txt_packageBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_searchPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel64))
-                        .addGap(291, 291, 291))
-                    .addGroup(panel_managePBookingLayout.createSequentialGroup()
-                        .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_peopleCount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_pBookedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_clearPBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_cancelPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(137, 137, 137))
+                    .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_pBookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_packageIds, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel_managePBookingLayout.createSequentialGroup()
+                            .addComponent(txt_packageBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btn_searchPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel64))
+                    .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txt_peopleCount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_pBookedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_clearPBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cancelPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_markAsPReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(135, 135, 135))
         );
         panel_managePBookingLayout.setVerticalGroup(
             panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_managePBookingLayout.createSequentialGroup()
-                .addGap(219, 219, 219)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_managePBookingLayout.createSequentialGroup()
                 .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_managePBookingLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_cancelPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_markAsPReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_clearPBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_managePBookingLayout.createSequentialGroup()
+                        .addGap(219, 219, 219)
                         .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -3181,7 +3224,7 @@ public class DashBoard extends javax.swing.JFrame {
             }
             else{
                 JOptionPane.showMessageDialog(null, "Booking does not exist", "Not Found", JOptionPane.INFORMATION_MESSAGE);
-                clearBookingData();
+                clearRBookingData();
             }
         }
         catch(Exception e){
@@ -3191,7 +3234,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btn_clearBookingFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearBookingFieldsActionPerformed
         // TODO add your handling code here:
-        clearBookingData();
+        clearRBookingData();
     }//GEN-LAST:event_btn_clearBookingFieldsActionPerformed
 
     private void btn_cancelBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelBookingActionPerformed
@@ -3226,7 +3269,7 @@ public class DashBoard extends javax.swing.JFrame {
                     ps.setString(1, bookingID);
                     ps.execute();
                     JOptionPane.showMessageDialog(null, "Booking Canceled!", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
-                    clearBookingData();
+                    clearRBookingData();
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -3235,7 +3278,7 @@ public class DashBoard extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(null, "The booking can't be canceled since the booked date is no more 1 day apart!", "Cannot Cancel Booking!", JOptionPane.WARNING_MESSAGE);
-            clearBookingData();
+            clearRBookingData();
         }
     }//GEN-LAST:event_btn_cancelBookingActionPerformed
 
@@ -3740,7 +3783,7 @@ public class DashBoard extends javax.swing.JFrame {
     private void lbl_managePackageBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageBookingMouseClicked
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(7);
-        clearPBookingFields();
+        clearPBookingData();
     }//GEN-LAST:event_lbl_managePackageBookingMouseClicked
 
     private void lbl_managePackageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageMouseClicked
@@ -3817,7 +3860,7 @@ public class DashBoard extends javax.swing.JFrame {
     private void lbl_manageRoomBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomBookingMouseClicked
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(3);
-        clearBookingData();
+        clearRBookingData();
     }//GEN-LAST:event_lbl_manageRoomBookingMouseClicked
 
     private void lbl_manageRoomsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomsMouseClicked
@@ -3853,7 +3896,7 @@ public class DashBoard extends javax.swing.JFrame {
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Booking does not exist.", "Not Found", JOptionPane.INFORMATION_MESSAGE);
-                    clearPBookingFields();
+                    clearPBookingData();
                 }
             }
             catch(Exception e){
@@ -3896,7 +3939,7 @@ public class DashBoard extends javax.swing.JFrame {
                     deletePs.execute();
                     
                     JOptionPane.showMessageDialog(null, "Booking has been canceled.", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
-                    clearPBookingFields();
+                    clearPBookingData();
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -3905,7 +3948,7 @@ public class DashBoard extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(null, "The booking can't be canceled since the booked date is no more 1 day apart!", "Cannot Cancel Booking!", JOptionPane.WARNING_MESSAGE);
-            clearPBookingFields();
+            clearPBookingData();
         }
     }//GEN-LAST:event_btn_cancelPBookingActionPerformed
 
@@ -3951,13 +3994,199 @@ public class DashBoard extends javax.swing.JFrame {
                 deletePs.executeUpdate();
                 
                 JOptionPane.showMessageDialog(null, "Booking has been changed as reserved.", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
-                clearBookingData();
+                clearRBookingData();
             }
             catch(Exception e){
                 e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btn_markAsReserveActionPerformed
+
+    private void btn_markAsPReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_markAsPReserveActionPerformed
+        // TODO add your handling code here:
+        String pBookingId = txt_packageBookingID.getText();
+        String reserveId = generatePReservedID();
+        String cusID = txt_pBookedCusID.getText();
+        String reserveDate = txt_pBookedDate.getText();
+        int peopleCount = Integer.parseInt(txt_peopleCount.getText());
+        int result = JOptionPane.showConfirmDialog(null, "Confirm Mark As Reserve", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            try{
+                Connection con = connect();
+                String getIDsql = "select package_id from package_bookings where pbooking_id = ?";
+                PreparedStatement getIDps = con.prepareStatement(getIDsql);
+                getIDps.setString(1, pBookingId);
+                List<String> packageIds = new ArrayList<>();
+                List<Float> packagePrices = new ArrayList<>();
+                ResultSet getIDrs = getIDps.executeQuery();
+                while(getIDrs.next()){
+                    packageIds.add(getIDrs.getString("package_id"));
+                }
+                
+                for(String packageid : packageIds){
+                    String getPPrice = "select package_price from packages where package_id = ?";
+                    PreparedStatement getPPricePs = con.prepareStatement(getPPrice);
+                    getPPricePs.setString(1, packageid);
+                    ResultSet gPPrs = getPPricePs.executeQuery();
+                    while(gPPrs.next()){
+                        packagePrices.add(Float.valueOf(gPPrs.getString("package_price")));
+                    }    
+                    String pushSql = "insert into p_reserved_data(p_reserved_id, cus_id, package_id, payment_status, people_count, reserve_date) values (?, ?, ?, ?, ?, ?)";
+                    PreparedStatement pushPs = con.prepareStatement(pushSql);
+                    pushPs.setString(1, reserveId);
+                    pushPs.setString(2, cusID);
+                    pushPs.setString(3, packageid);
+                    pushPs.setString(4, "Full Paid");
+                    pushPs.setInt(5, peopleCount);
+                    pushPs.setString(6, reserveDate);
+                    pushPs.execute();
+                    
+                    String updateSql = "update packages set status = 'Reserved' where package_id = ?";
+                    PreparedStatement updatePs = con.prepareStatement(updateSql);
+                    updatePs.setString(1, packageid);
+                    updatePs.executeUpdate();
+                }
+                
+                float totalPrice = 0;
+                for(Float price : packagePrices){
+                    totalPrice += price;
+                }
+                
+                String receiptId = generateReceiptID();
+                String pushReceiptSql = "insert into receipts (receipt_id, cus_id, p_reserved_id, cost, payment_status) values (?, ?, ?, ?, ?)";
+                PreparedStatement pushReceiptPs = con.prepareStatement(pushReceiptSql);
+                pushReceiptPs.setString(1, receiptId);
+                pushReceiptPs.setString(2, cusID);
+                pushReceiptPs.setString(3, reserveId);
+                pushReceiptPs.setFloat(4, totalPrice);
+                pushReceiptPs.setString(5, "Full Paid");
+                pushReceiptPs.execute();
+                
+                String pushFinanceSql = "insert into finance (receipt_id, amount) values (?, ?)";
+                PreparedStatement pushFinancePs = con.prepareStatement(pushFinanceSql);
+                pushFinancePs.setString(1, receiptId);
+                pushFinancePs.setFloat(2, totalPrice);
+                pushFinancePs.execute();
+                
+                String deleteSql = "delete from package_bookings where pbooking_id = ?";
+                PreparedStatement deletePs = con.prepareStatement(deleteSql);
+                deletePs.setString(1, pBookingId);
+                deletePs.executeUpdate();
+                clearPBookingData();
+                int result1 = JOptionPane.showConfirmDialog(null, "Booking has been changed as reserved.\nDo you want to print the recipt?", "Operation Successful", JOptionPane.YES_NO_OPTION);
+                if(result1 == JOptionPane.YES_OPTION){
+                    String path = "C:\\";
+                    com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+                    try{
+                        String CusID = null, cusName = null, cusNRC = null, cusPass = null, cusCon = null;
+                        String getcusIDSql = "select cus_id from receipts where receipt_id = ?";
+                        PreparedStatement ps5 = con.prepareStatement(getcusIDSql);
+                        ps5.setString(1, receiptId);
+                        ResultSet rs5 = ps5.executeQuery();
+                        while(rs5.next()){
+                            CusID = rs5.getString("cus_id");
+                        }
+
+                        if(CusID != null){
+                            String getCusInfoSql = "select cus_name, cus_nrc, cus_passport, cus_contact from customer_info where cus_id  = ?";
+                            PreparedStatement ps6 = con.prepareStatement(getCusInfoSql);
+                            ps6.setString(1, CusID);
+                            ResultSet rs6 = ps6.executeQuery();
+                            while(rs6.next()){
+                                cusName = rs6.getString("cus_name");
+                                cusNRC = rs6.getString("cus_nrc");
+                                cusPass = rs6.getString("cus_passport");
+                                cusCon = rs6.getString("cus_contact");
+                            }
+                        }
+                        
+                        String getRequiredDataSql = "SELECT p.package_name, p.package_type, p.package_price, p.services " +
+                                                    "FROM receipts rp " +
+                                                    "JOIN p_reserved_data pr ON rp.p_reserved_id = pr.p_reserved_id " +
+                                                    "JOIN packages p ON pr.package_id = p.package_id " +
+                                                    "WHERE rp.receipt_id = ?";
+                        PreparedStatement gRDPs = con.prepareStatement(getRequiredDataSql);
+                        gRDPs.setString(1, receiptId);
+                        ResultSet gRDRs = gRDPs.executeQuery();
+                        List<Object[]> dataArray = new ArrayList<>();
+                        while(gRDRs.next()){
+                            String packageName = gRDRs.getString("package_name");
+                            String packageType = gRDRs.getString("package_type");
+                            float packagePrice = Float.parseFloat(gRDRs.getString("package_price"));
+                            String services = gRDRs.getString("services");
+                            
+                            Object[] rowData = {packageName, packageType, services, packagePrice};
+                            dataArray.add(rowData);
+                        }
+                        
+                        PdfWriter.getInstance(doc, new FileOutputStream(path + "Receipt_" + receiptId + ".pdf"));
+                        doc.open();
+                        Paragraph p1 = new Paragraph("                                  The Golden Oasis Hotel Guest Receipt\n");
+                        doc.add(p1);
+                        Paragraph p2 = new Paragraph("**********************************************************************************************************");
+                        doc.add(p2);
+                        Paragraph p3 = new Paragraph("Receipt ID: " + receiptId);
+                        doc.add(p3);
+                        Paragraph p5 = new Paragraph("**********************************************************************************************************");
+                        doc.add(p5);
+                        Paragraph p6 = new Paragraph("Guest Details\nGuest ID: " + cusID + "\nGuest Name: " + cusName + "\nGuest NRC: " + cusNRC + "\nGuest Passport: " + cusPass + "\nGuest Contact: " + cusCon + "\n\n");
+                        doc.add(p6);
+                        doc.add(p2);
+                        PdfPTable table = new PdfPTable(4);
+                        String[] headers = {"Package Name", "Package Type", "Services", "Package Price"};
+                        for (String header : headers) {
+                            PdfPCell cell = new PdfPCell(new Phrase(header));
+                            table.addCell(cell);
+                        }
+                        
+                        for (Object[] rowData : dataArray) {
+                            for (Object data : rowData) {
+                                PdfPCell cell = new PdfPCell(new Phrase(data.toString()));
+                                table.addCell(cell);
+                            }
+                        }
+
+                        float totalCost = 0;
+                        for(Object[] row : dataArray){
+                            totalCost += (float)row[3];
+                        }
+
+                        PdfPCell TCcell = new PdfPCell(new Phrase("Total Cost: " + totalCost));
+                        TCcell.setColspan(3);
+                        table.addCell(TCcell);
+                        table.addCell("");
+                        doc.add(table);
+
+                        doc.add(p2);
+                        Paragraph p7 = new Paragraph("Thanks for visiting. Please Come Again in very near future!");
+                        doc.add(p7);
+                        doc.close();
+
+                        if(new File("C:\\" + "Receipt_" + receiptId + ".pdf").exists()){
+                            Process p = Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler C:\\Receipt_" + receiptId + ".pdf");
+                        }
+                        else{
+                            System.out.println("File does not exist");
+                        }
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    clearPBookingData();
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_markAsPReserveActionPerformed
+
+    private void btn_clearPBookingFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearPBookingFieldsActionPerformed
+        // TODO add your handling code here:
+        clearPBookingData();
+    }//GEN-LAST:event_btn_clearPBookingFieldsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4012,6 +4241,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btn_generateID;
     private javax.swing.JButton btn_generatePackageID;
     private javax.swing.JButton btn_generateStaffID;
+    private javax.swing.JButton btn_markAsPReserve;
     private javax.swing.JButton btn_markAsReserve;
     private javax.swing.JButton btn_removePackage;
     private javax.swing.JButton btn_removeRoom;

@@ -85,6 +85,15 @@ public class ViewPackages extends javax.swing.JFrame {
                 bookedPIds.add(rs.getString("package_id"));
             }
             
+            String reservedPackageSql = "select distinct package_id from p_reserved_data where reserve_date = ?";
+            ps = con.prepareStatement(reservedPackageSql);
+            ps.setString(1, date);
+            rs = ps.executeQuery();
+            Set<String> reservedPIds = new HashSet<>();
+            while(rs.next()){
+                reservedPIds.add(rs.getString("package_id"));
+            }
+            
             String allPackageSql = "select package_id from packages";
             ps = con.prepareStatement(allPackageSql);
             rs = ps.executeQuery();
@@ -93,7 +102,7 @@ public class ViewPackages extends javax.swing.JFrame {
                 allPIds.add(rs.getString("package_id"));
             }
             for(String packageID : allPIds){
-                if(!bookedPIds.contains(packageID)){
+                if(!bookedPIds.contains(packageID) && !reservedPIds.contains(packageID)){
                     availablePackages.add(packageID);
                 }
             }
@@ -457,12 +466,16 @@ public class ViewPackages extends javax.swing.JFrame {
             if(columnName.equals("package_type")){
                 sql = "select package_id, package_name, package_type, package_price, services from packages where " + columnName + " = '" + data + "' " +
                 "AND package_id NOT IN " +
-                "(select distinct package_id from package_bookings where booking_date = ?)";
+                "(select distinct package_id from package_bookings where booking_date = ?)" +
+                "AND package_id NOT IN " +        
+                "(select distinct package_id from p_reserved_id where reserve_date = ?)";
             }
             else{
                 sql = "select package_id, package_name, package_type, package_price, services from packages where " + columnName + " = " + data + " " +
                 "AND package_id NOT IN " +
-                "(select distinct package_id from package_bookings where booking_date = ?)";
+                "(select distinct package_id from package_bookings where booking_date = ?)" +
+                "AND package_id NOT IN " +        
+                "(select distinct package_id from p_reserved_id where reserve_date = ?)";
             }
             
             PreparedStatement ps = con.prepareStatement(sql);

@@ -660,7 +660,7 @@ public class ViewRooms extends javax.swing.JFrame {
                   "AND room_id NOT IN " +
                   "(SELECT DISTINCT room_id FROM room_bookings WHERE booking_date = ?) " +
                   "AND room_id NOT IN " +
-                  "(SELECT DISTINCT room_id FROM r_reserved_data WHERE ? BETWEEN check_in_date AND check_out_date)";
+                  "(SELECT DISTINCT room_id FROM r_reserved_data WHERE check_out_date >= ? OR check_out_date is NULL)";
             }
             else{
                 sql = "SELECT room_id, room_no, room_type, room_price, description, bed FROM room " +
@@ -668,7 +668,7 @@ public class ViewRooms extends javax.swing.JFrame {
                   "AND room_id NOT IN " +
                   "(SELECT DISTINCT room_id FROM room_bookings WHERE booking_date = ?) " +
                   "AND room_id NOT IN " +
-                  "(SELECT DISTINCT room_id FROM r_reserved_data WHERE ? BETWEEN check_in_date AND check_out_date)";
+                  "(SELECT DISTINCT room_id FROM r_reserved_data WHERE check_out_date >= ? OR check_out_date is NULL)";
             }
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, formattedDate);
