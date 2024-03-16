@@ -50,7 +50,26 @@ public class WelcomeForm extends javax.swing.JFrame {
             PreparedStatement ps3 = con.prepareStatement(sql3);
             ps3.executeUpdate();
             
-//            JOptionPane.showMessageDialog(null, "System Ready");
+            String packageSql = "select package_id from package_bookings where STR_TO_DATE(booking_date, '%Y-%m-%d') < CURDATE()";
+            PreparedStatement packagePs = con.prepareStatement(packageSql);
+            ResultSet packageRs = packagePs.executeQuery();
+            List<String> packageIdsToUpdate = new ArrayList<>();
+            while(rs.next()){
+                packageIdsToUpdate.add(packageRs.getString("package_id"));
+            }
+            
+            String updatePSql = "update packages set status = 'Available' where package_id = ?";
+            PreparedStatement updatePPs = con.prepareStatement(updatePSql);
+            for(String packageid : packageIdsToUpdate){
+                updatePPs.setString(1, packageid);
+                updatePPs.executeUpdate();
+            }
+            
+            String deletePSql = "delete from package_bookings where STR_TO_DATE(booking_date, '%Y-%m-%d') < CURDATE()";
+            PreparedStatement deletePPs = con.prepareStatement(deletePSql);
+            deletePPs.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "System Ready");
         }
         catch(Exception e){
             e.printStackTrace();

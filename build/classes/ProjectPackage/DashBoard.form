@@ -1678,37 +1678,33 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="166" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel23" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Component id="txt_bookedCusID" min="-2" pref="260" max="-2" attributes="0"/>
-                                      <Component id="jLabel21" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txt_bookingID" min="-2" pref="260" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btn_searchBooking" min="-2" pref="147" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel20" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Component id="txt_bookedRoomID" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel23" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="txt_bookedCusID" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="jLabel21" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="jLabel19" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="txt_bookingID" min="-2" pref="260" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btn_searchBooking" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="308" max="-2" attributes="0"/>
+                                  <Component id="jLabel20" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="txt_bookedRoomID" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txt_bookingStayPeriod" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
-                                      <Component id="jLabel24" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Component id="txt_bookingDate" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="btn_cancelBooking" min="-2" pref="271" max="-2" attributes="0"/>
-                                      <Component id="btn_clearBookingFields" min="-2" pref="271" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txt_bookingStayPeriod" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="jLabel24" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="txt_bookingDate" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btn_cancelBooking" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Component id="btn_clearBookingFields" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Component id="btn_markAsReserve" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1717,17 +1713,14 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="220" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btn_cancelBooking" min="-2" pref="44" max="-2" attributes="0"/>
-                                      <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                                      <Component id="btn_clearBookingFields" min="-2" pref="48" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="btn_cancelBooking" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btn_markAsReserve" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btn_clearBookingFields" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="jLabel19" min="-2" pref="22" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1933,6 +1926,26 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearBookingFieldsActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btn_markAsReserve">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="7c" green="7c" red="5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Mark As Reserved"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_markAsReserveActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

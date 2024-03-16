@@ -140,7 +140,7 @@ public class ViewRooms extends javax.swing.JFrame {
             }
 
             // Retrieve reserved room IDs for the specific date
-            String reservedSql = "SELECT DISTINCT room_id FROM r_reserved_data WHERE check_out_date >= ?";
+            String reservedSql = "SELECT DISTINCT room_id FROM r_reserved_data WHERE check_out_date >= ? OR check_out_date is NULL";
             ps = con.prepareStatement(reservedSql);
             ps.setString(1, date);
             rs = ps.executeQuery();

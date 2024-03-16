@@ -673,6 +673,7 @@ public class DashBoard extends javax.swing.JFrame {
         txt_bookingStayPeriod = new javax.swing.JTextField();
         btn_cancelBooking = new javax.swing.JButton();
         btn_clearBookingFields = new javax.swing.JButton();
+        btn_markAsReserve = new javax.swing.JButton();
         panel_guestCheckIn = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         txt_cusID = new javax.swing.JTextField();
@@ -1714,49 +1715,57 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
+        btn_markAsReserve.setBackground(new java.awt.Color(5, 124, 124));
+        btn_markAsReserve.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_markAsReserve.setForeground(new java.awt.Color(255, 255, 255));
+        btn_markAsReserve.setText("Mark As Reserved");
+        btn_markAsReserve.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_markAsReserve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_markAsReserveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_manageBookingsLayout = new javax.swing.GroupLayout(panel_manageBookings);
         panel_manageBookings.setLayout(panel_manageBookingsLayout);
         panel_manageBookingsLayout.setHorizontalGroup(
             panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
                 .addContainerGap(166, Short.MAX_VALUE)
+                .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel_manageBookingsLayout.createSequentialGroup()
+                            .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btn_searchBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                        .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_bookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                                .addComponent(txt_bookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_searchBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_bookedRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(308, 308, 308))
-                    .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                        .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_bookingStayPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(131, 131, 131))
+                    .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_markAsReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(132, 132, 132))
         );
         panel_manageBookingsLayout.setVerticalGroup(
             panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
                 .addContainerGap(220, Short.MAX_VALUE)
                 .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panel_manageBookingsLayout.createSequentialGroup()
-                            .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(80, 80, 80))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
-                            .addGap(76, 76, 76)
-                            .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_manageBookingsLayout.createSequentialGroup()
+                        .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_markAsReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_clearBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_manageBookingsLayout.createSequentialGroup()
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -3172,6 +3181,7 @@ public class DashBoard extends javax.swing.JFrame {
             }
             else{
                 JOptionPane.showMessageDialog(null, "Booking does not exist", "Not Found", JOptionPane.INFORMATION_MESSAGE);
+                clearBookingData();
             }
         }
         catch(Exception e){
@@ -3899,6 +3909,56 @@ public class DashBoard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_cancelPBookingActionPerformed
 
+    private void btn_markAsReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_markAsReserveActionPerformed
+        // TODO add your handling code here:
+        String RbookingId = txt_bookingID.getText();
+        String reserveId = generateRReservedID();
+        String checkInDate = txt_bookingDate.getText();
+        String cusID = txt_bookedCusID.getText();
+        int result = JOptionPane.showConfirmDialog(null, "Confirm Mark As Reserved?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            try{
+                Connection con = connect();
+                String getIDsql = "select room_id from room_bookings where booking_id = ?";
+                PreparedStatement getIDps = con.prepareStatement(getIDsql);
+                getIDps.setString(1, RbookingId);
+                ResultSet getIdrs = getIDps.executeQuery();
+                List<String> roomIds = new ArrayList<>();
+                while(getIdrs.next()){
+                    roomIds.add(getIdrs.getString("room_id"));
+                }
+                
+                for(String roomid : roomIds){
+                    String pushSql = "insert into r_reserved_data(r_reserved_id, cus_id, room_id, payment_status, check_in_date, check_out_date) values (?, ?, ?, ?, ?, ?)";
+                    PreparedStatement pushPs = con.prepareStatement(pushSql);
+                    pushPs.setString(1, reserveId);
+                    pushPs.setString(2, cusID);
+                    pushPs.setString(3, roomid);
+                    pushPs.setString(4, "Not Paid");
+                    pushPs.setString(5, checkInDate);
+                    pushPs.setString(6, null);
+                    pushPs.execute();
+                    
+                    String updateSql = "update room set status = 'Reserved' where room_id = ?";
+                    PreparedStatement updatePs = con.prepareStatement(updateSql);
+                    updatePs.setString(1, roomid);
+                    updatePs.executeUpdate();
+                }
+                
+                String deleteSql = "delete from room_bookings where booking_id = ?";
+                PreparedStatement deletePs = con.prepareStatement(deleteSql);
+                deletePs.setString(1, RbookingId);
+                deletePs.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Booking has been changed as reserved.", "Operation Successful", JOptionPane.INFORMATION_MESSAGE);
+                clearBookingData();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_markAsReserveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3952,6 +4012,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btn_generateID;
     private javax.swing.JButton btn_generatePackageID;
     private javax.swing.JButton btn_generateStaffID;
+    private javax.swing.JButton btn_markAsReserve;
     private javax.swing.JButton btn_removePackage;
     private javax.swing.JButton btn_removeRoom;
     private javax.swing.JButton btn_removeStaff;
