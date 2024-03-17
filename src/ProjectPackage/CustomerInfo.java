@@ -1169,9 +1169,7 @@ public class CustomerInfo extends javax.swing.JFrame {
                         BookingReceipt br = new BookingReceipt(pbooking_id, FROM_PACKAGE);
                         br.setVisible(true);
                         this.hide();
-                    }
-                    
-                    
+                    }   
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -1259,7 +1257,7 @@ public class CustomerInfo extends javax.swing.JFrame {
                         deleteTempPs.execute();
                         
                         JOptionPane.showMessageDialog(null, "Booking Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        BookingReceipt br = new BookingReceipt(booking_id, FROM_PACKAGE);
+                        BookingReceipt br = new BookingReceipt(pbooking_id, FROM_PACKAGE);
                         br.setVisible(true);
                         this.hide();
                     }

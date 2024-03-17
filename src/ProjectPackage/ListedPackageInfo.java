@@ -294,6 +294,7 @@ public class ListedPackageInfo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void table_listedPackagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listedPackagesMouseClicked
