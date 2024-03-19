@@ -92,13 +92,13 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panel_manageRoomsLbl" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panel_manageRBookingLbl" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panel_GcheckIn" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panel_GcheckOut" alignment="0" max="32767" attributes="0"/>
                   <Component id="panel_manageStaffLbl" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panel_logOutLbl" alignment="0" max="32767" attributes="0"/>
                   <Component id="panel_managePackLbl" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel9" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panel_managePBookingLbl" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -137,19 +137,19 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panel_manageRoomsLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="panel_manageRBookingLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panel_managePackLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
+                      <Component id="panel_managePBookingLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="panel_GcheckIn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                      <Component id="panel_GcheckOut" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panel_manageStaffLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                      <Component id="panel_logOutLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -248,7 +248,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel4">
+            <Container class="javax.swing.JPanel" name="panel_manageRBookingLbl">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -299,7 +299,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel5">
+            <Container class="javax.swing.JPanel" name="panel_GcheckIn">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -350,7 +350,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel6">
+            <Container class="javax.swing.JPanel" name="panel_GcheckOut">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -365,7 +365,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lbl_guestCheckiout" min="-2" pref="314" max="-2" attributes="0"/>
+                          <Component id="lbl_guestCheckout" min="-2" pref="314" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -374,14 +374,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lbl_guestCheckiout" min="-2" pref="52" max="-2" attributes="0"/>
+                          <Component id="lbl_guestCheckout" min="-2" pref="52" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lbl_guestCheckiout">
+                <Component class="javax.swing.JLabel" name="lbl_guestCheckout">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
@@ -396,7 +396,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_guestCheckioutMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbl_guestCheckoutMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -452,7 +452,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel8">
+            <Container class="javax.swing.JPanel" name="panel_logOutLbl">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -554,7 +554,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel9">
+            <Container class="javax.swing.JPanel" name="panel_managePBookingLbl">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -3893,24 +3893,20 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel67" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                  <Component id="txt_pBookedCusID" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <Component id="jLabel66" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                  <Component id="txt_packageIds" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <Component id="jLabel65" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txt_packageBookingID" min="-2" pref="260" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="btn_searchPBooking" min="-2" pref="157" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel64" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel67" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="txt_pBookedCusID" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Component id="jLabel66" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="txt_packageIds" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Component id="jLabel65" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txt_packageBookingID" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btn_searchPBooking" min="-2" pref="157" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_peopleCount" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <Component id="jLabel68" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
-                                  <Component id="txt_pBookedDate" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel64" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_peopleCount" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Component id="jLabel68" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="txt_pBookedDate" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="22" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">

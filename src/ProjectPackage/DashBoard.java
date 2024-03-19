@@ -9,6 +9,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -520,7 +521,7 @@ public class DashBoard extends javax.swing.JFrame {
     }
     
     public void clearStaffFields(){
-        txt_staffid.setText(generateStaffID());
+        txt_staffID.setText(generateStaffID());
         txt_staffName.setText("");
         txt_staffAge.setText("");
         rbtn_staffMale.setSelected(false);
@@ -597,6 +598,249 @@ public class DashBoard extends javax.swing.JFrame {
         }
     }
     
+    public void changeDesignOfClickedLabel(int index){
+        switch(index){
+            case 1: 
+                panel_manageRoomsLbl.setBackground(Color.BLACK);
+                lbl_manageRooms.setBackground(Color.BLACK);
+                lbl_manageRooms.setForeground(Color.WHITE);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                break;
+            case 2:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.black);
+                lbl_managePackage.setBackground(Color.black);
+                lbl_managePackage.setForeground(Color.white);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                break;
+            case 3:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.black);
+                lbl_manageRoomBooking.setBackground(Color.black);
+                lbl_manageRoomBooking.setForeground(Color.white);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                break;
+            case 4:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.black);
+                lbl_guestCheckin.setBackground(Color.black);
+                lbl_guestCheckin.setForeground(Color.white);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                break;
+            case 5:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.black);
+                lbl_guestCheckout.setBackground(Color.black);
+                lbl_guestCheckout.setForeground(Color.white);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                break;
+            case 6:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.black);
+                lbl_manageStaffacc.setBackground(Color.black);
+                lbl_manageStaffacc.setForeground(Color.white);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                break;
+            case 7:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.black);
+                lbl_logout.setBackground(Color.black);
+                lbl_logout.setForeground(Color.white);
+                
+                break;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -619,19 +863,19 @@ public class DashBoard extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         panel_manageRoomsLbl = new javax.swing.JPanel();
         lbl_manageRooms = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        panel_manageRBookingLbl = new javax.swing.JPanel();
         lbl_manageRoomBooking = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        panel_GcheckIn = new javax.swing.JPanel();
         lbl_guestCheckin = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        lbl_guestCheckiout = new javax.swing.JLabel();
+        panel_GcheckOut = new javax.swing.JPanel();
+        lbl_guestCheckout = new javax.swing.JLabel();
         panel_manageStaffLbl = new javax.swing.JPanel();
         lbl_manageStaffacc = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        panel_logOutLbl = new javax.swing.JPanel();
         lbl_logout = new javax.swing.JLabel();
         panel_managePackLbl = new javax.swing.JPanel();
         lbl_managePackage = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        panel_managePBookingLbl = new javax.swing.JPanel();
         lbl_managePackageBooking = new javax.swing.JLabel();
         TabbedPane = new javax.swing.JTabbedPane();
         panel_adminHome = new javax.swing.JPanel();
@@ -876,8 +1120,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        panel_manageRBookingLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_manageRBookingLbl.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_manageRoomBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_manageRoomBooking.setForeground(new java.awt.Color(0, 0, 0));
@@ -890,25 +1134,25 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_manageRBookingLblLayout = new javax.swing.GroupLayout(panel_manageRBookingLbl);
+        panel_manageRBookingLbl.setLayout(panel_manageRBookingLblLayout);
+        panel_manageRBookingLblLayout.setHorizontalGroup(
+            panel_manageRBookingLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRBookingLblLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_manageRoomBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        panel_manageRBookingLblLayout.setVerticalGroup(
+            panel_manageRBookingLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRBookingLblLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_manageRoomBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
+        panel_GcheckIn.setBackground(new java.awt.Color(255, 255, 255));
+        panel_GcheckIn.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_guestCheckin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_guestCheckin.setForeground(new java.awt.Color(0, 0, 0));
@@ -921,51 +1165,51 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_GcheckInLayout = new javax.swing.GroupLayout(panel_GcheckIn);
+        panel_GcheckIn.setLayout(panel_GcheckInLayout);
+        panel_GcheckInLayout.setHorizontalGroup(
+            panel_GcheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_GcheckInLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(lbl_guestCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        panel_GcheckInLayout.setVerticalGroup(
+            panel_GcheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_GcheckInLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_guestCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setForeground(new java.awt.Color(0, 0, 0));
+        panel_GcheckOut.setBackground(new java.awt.Color(255, 255, 255));
+        panel_GcheckOut.setForeground(new java.awt.Color(0, 0, 0));
 
-        lbl_guestCheckiout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_guestCheckiout.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_guestCheckiout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_guestCheckiout.setText("Guest Checking Out");
-        lbl_guestCheckiout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbl_guestCheckiout.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbl_guestCheckout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_guestCheckout.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_guestCheckout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_guestCheckout.setText("Guest Checking Out");
+        lbl_guestCheckout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_guestCheckout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbl_guestCheckioutMouseClicked(evt);
+                lbl_guestCheckoutMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_GcheckOutLayout = new javax.swing.GroupLayout(panel_GcheckOut);
+        panel_GcheckOut.setLayout(panel_GcheckOutLayout);
+        panel_GcheckOutLayout.setHorizontalGroup(
+            panel_GcheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_GcheckOutLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_guestCheckiout, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_guestCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        panel_GcheckOutLayout.setVerticalGroup(
+            panel_GcheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_GcheckOutLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_guestCheckiout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_guestCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1000,8 +1244,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setForeground(new java.awt.Color(0, 0, 0));
+        panel_logOutLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_logOutLbl.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_logout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_logout.setForeground(new java.awt.Color(0, 0, 0));
@@ -1014,18 +1258,18 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_logOutLblLayout = new javax.swing.GroupLayout(panel_logOutLbl);
+        panel_logOutLbl.setLayout(panel_logOutLblLayout);
+        panel_logOutLblLayout.setHorizontalGroup(
+            panel_logOutLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_logOutLblLayout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addComponent(lbl_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        panel_logOutLblLayout.setVerticalGroup(
+            panel_logOutLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_logOutLblLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1062,8 +1306,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setForeground(new java.awt.Color(0, 0, 0));
+        panel_managePBookingLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_managePBookingLbl.setForeground(new java.awt.Color(0, 0, 0));
 
         lbl_managePackageBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_managePackageBooking.setForeground(new java.awt.Color(0, 0, 0));
@@ -1076,18 +1320,18 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_managePBookingLblLayout = new javax.swing.GroupLayout(panel_managePBookingLbl);
+        panel_managePBookingLbl.setLayout(panel_managePBookingLblLayout);
+        panel_managePBookingLblLayout.setHorizontalGroup(
+            panel_managePBookingLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_managePBookingLblLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(lbl_managePackageBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        panel_managePBookingLblLayout.setVerticalGroup(
+            panel_managePBookingLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_managePBookingLblLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_managePackageBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1098,13 +1342,13 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_manageRoomsLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_manageRBookingLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_GcheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_GcheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel_manageStaffLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_logOutLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel_managePackLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_managePBookingLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1135,19 +1379,19 @@ public class DashBoard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_manageRoomsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_manageRBookingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_managePackLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_managePBookingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_GcheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_GcheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_manageStaffLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_logOutLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
 
@@ -2810,21 +3054,19 @@ public class DashBoard extends javax.swing.JFrame {
             .addGroup(panel_managePBookingLayout.createSequentialGroup()
                 .addGap(167, 167, 167)
                 .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_pBookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_packageIds, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panel_managePBookingLayout.createSequentialGroup()
-                            .addComponent(txt_packageBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btn_searchPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel64))
-                    .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txt_peopleCount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_pBookedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_pBookedCusID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_packageIds, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_managePBookingLayout.createSequentialGroup()
+                        .addComponent(txt_packageBookingID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_searchPBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel64)
+                    .addComponent(txt_peopleCount, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_pBookedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(panel_managePBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_clearPBookingFields, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3783,6 +4025,7 @@ public class DashBoard extends javax.swing.JFrame {
     private void lbl_managePackageBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_managePackageBookingMouseClicked
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(7);
+        changeDesignOfClickedLabel(7);
         clearPBookingData();
     }//GEN-LAST:event_lbl_managePackageBookingMouseClicked
 
@@ -3793,12 +4036,14 @@ public class DashBoard extends javax.swing.JFrame {
         }
         else{
             TabbedPane.setSelectedIndex(2);
+            changeDesignOfClickedLabel(2);
             clearPackageFields();
         }
     }//GEN-LAST:event_lbl_managePackageMouseClicked
 
     private void lbl_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoutMouseClicked
         // TODO add your handling code here:
+        changeDesignOfClickedLabel(7);
         int result = JOptionPane.showConfirmDialog(null, "Confirm Logout?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.YES_OPTION){
             txt_staffid.setText("Staff id");
@@ -3813,6 +4058,7 @@ public class DashBoard extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(role == 0){
             TabbedPane.setSelectedIndex(6);
+            changeDesignOfClickedLabel(6);
             DisplayStaffInfo();
             clearStaffFields();
         }
@@ -3821,18 +4067,20 @@ public class DashBoard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lbl_manageStaffaccMouseClicked
 
-    private void lbl_guestCheckioutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckioutMouseClicked
+    private void lbl_guestCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckoutMouseClicked
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(5);
+        changeDesignOfClickedLabel(5);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String currentDate = LocalDate.now().format(dateFormat);
         txt_checkOutDate.setText(currentDate);
         DisplayRoomReservedData();
-    }//GEN-LAST:event_lbl_guestCheckioutMouseClicked
+    }//GEN-LAST:event_lbl_guestCheckoutMouseClicked
 
     private void lbl_guestCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_guestCheckinMouseClicked
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(4);
+        changeDesignOfClickedLabel(4);
         txt_cusID.setText(generateCustomerID());
         sameRReservedID = generateRReservedID();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -3860,6 +4108,7 @@ public class DashBoard extends javax.swing.JFrame {
     private void lbl_manageRoomBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_manageRoomBookingMouseClicked
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(3);
+        changeDesignOfClickedLabel(3);
         clearRBookingData();
     }//GEN-LAST:event_lbl_manageRoomBookingMouseClicked
 
@@ -3870,6 +4119,8 @@ public class DashBoard extends javax.swing.JFrame {
         }
         else{
             TabbedPane.setSelectedIndex(1);
+//            Color jade = new Color(5, 124, 124);
+            changeDesignOfClickedLabel(1);
             clearRoomFields();
         }
     }//GEN-LAST:event_lbl_manageRoomsMouseClicked
@@ -4327,11 +4578,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -4340,7 +4586,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_guestCheckin;
-    private javax.swing.JLabel lbl_guestCheckiout;
+    private javax.swing.JLabel lbl_guestCheckout;
     private javax.swing.JLabel lbl_logout;
     private javax.swing.JLabel lbl_managePackage;
     private javax.swing.JLabel lbl_managePackageBooking;
@@ -4349,13 +4595,18 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_manageStaffacc;
     private javax.swing.JLabel lbl_packageImage;
     private javax.swing.JLabel lbl_roomImage;
+    private javax.swing.JPanel panel_GcheckIn;
+    private javax.swing.JPanel panel_GcheckOut;
     private javax.swing.JPanel panel_adminHome;
     private javax.swing.JPanel panel_guestCheckIn;
     private javax.swing.JPanel panel_guestCheckOut;
+    private javax.swing.JPanel panel_logOutLbl;
     private javax.swing.JPanel panel_manageBookings;
     private javax.swing.JPanel panel_managePBooking;
+    private javax.swing.JPanel panel_managePBookingLbl;
     private javax.swing.JPanel panel_managePackLbl;
     private javax.swing.JPanel panel_managePackages;
+    private javax.swing.JPanel panel_manageRBookingLbl;
     private javax.swing.JPanel panel_manageRooms;
     private javax.swing.JPanel panel_manageRoomsLbl;
     private javax.swing.JPanel panel_manageStaffLbl;
