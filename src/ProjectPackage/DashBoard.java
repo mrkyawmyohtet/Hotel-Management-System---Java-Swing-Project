@@ -26,11 +26,14 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -70,6 +73,7 @@ public class DashBoard extends javax.swing.JFrame {
             panel_manageRoomsLbl.setVisible(false);
             panel_managePackLbl.setVisible(false);
             panel_manageStaffLbl.setVisible(false);
+            panel_viewFinanceLbl.setVisible(false);
         }
         TabbedPane.setSelectedIndex(0);
         DisplayRoom();
@@ -137,6 +141,72 @@ public class DashBoard extends javax.swing.JFrame {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             table_staffAcc.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void DisplayFinance(){
+        try{
+            Connection con = connect();
+            String sql = "select * from finance";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            table_finance.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void DisplayFinanceByMonth(String selectedMonth){
+        int year = Year.now().getValue();
+        Map<String, Integer> monthMap = new HashMap<>();
+        monthMap.put("January", 1);
+        monthMap.put("February", 2);
+        monthMap.put("March", 3);
+        monthMap.put("April", 4);
+        monthMap.put("May", 5);
+        monthMap.put("June", 6);
+        monthMap.put("July", 7);
+        monthMap.put("August", 8);
+        monthMap.put("September", 9);
+        monthMap.put("October", 10);
+        monthMap.put("November", 11);
+        monthMap.put("December", 12);
+
+        // Parse the month name to its numerical value
+        String[] parts = selectedMonth.split("\\s+");
+        int monthValue = monthMap.get(parts[0]);
+
+        // Construct the date string with numerical month value
+        String dateString = String.format("%d-%02d-01", year, monthValue);
+        LocalDate selectedDate = LocalDate.parse(dateString);
+        try{
+            Connection con = connect();
+            String sql = "SELECT finance.receipt_id, finance.Amount " +
+                        "FROM finance " +
+                        "INNER JOIN receipts ON finance.receipt_id = receipts.receipt_id " +
+                        "LEFT JOIN r_reserved_data ON receipts.r_reserved_id = r_reserved_data.r_reserved_id " +
+                        "LEFT JOIN p_reserved_data ON receipts.p_reserved_id = p_reserved_data.p_reserved_id " +
+                        "WHERE " +
+                        "(" +
+                        "(YEAR(r_reserved_data.check_in_date) * 100 + MONTH(r_reserved_data.check_in_date) = YEAR(?) * 100 + MONTH(?))" +
+                        "OR " +
+                        "(YEAR(r_reserved_data.check_out_date) * 100 + MONTH(r_reserved_data.check_out_date) = YEAR(?) * 100 + MONTH(?))" +
+                        "OR " +
+                        "(YEAR(p_reserved_data.reserve_date) * 100 + MONTH(p_reserved_data.reserve_date) = YEAR(?) * 100 + MONTH(?))" +
+                        ")";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, java.sql.Date.valueOf(selectedDate.withDayOfMonth(1)));
+            ps.setDate(2, java.sql.Date.valueOf(selectedDate.withDayOfMonth(1)));
+            ps.setDate(3, java.sql.Date.valueOf(selectedDate.withDayOfMonth(1)));
+            ps.setDate(4, java.sql.Date.valueOf(selectedDate.withDayOfMonth(1)));
+            ps.setDate(5, java.sql.Date.valueOf(selectedDate.withDayOfMonth(1)));
+            ps.setDate(6, java.sql.Date.valueOf(selectedDate.withDayOfMonth(1)));
+            ResultSet rs = ps.executeQuery();
+            table_finance.setModel(DbUtils.resultSetToTableModel(rs));
         }
         catch(Exception e){
             e.printStackTrace();
@@ -633,6 +703,10 @@ public class DashBoard extends javax.swing.JFrame {
                 lbl_logout.setBackground(Color.white);
                 lbl_logout.setForeground(Color.black);
                 
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
+                
                 break;
             case 2:
                 panel_manageRoomsLbl.setBackground(Color.white);
@@ -666,6 +740,10 @@ public class DashBoard extends javax.swing.JFrame {
                 panel_logOutLbl.setBackground(Color.white);
                 lbl_logout.setBackground(Color.white);
                 lbl_logout.setForeground(Color.black);
+                
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
                 
                 break;
             case 3:
@@ -701,6 +779,10 @@ public class DashBoard extends javax.swing.JFrame {
                 lbl_logout.setBackground(Color.white);
                 lbl_logout.setForeground(Color.black);
                 
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
+                
                 break;
             case 4:
                 panel_manageRoomsLbl.setBackground(Color.white);
@@ -734,6 +816,10 @@ public class DashBoard extends javax.swing.JFrame {
                 panel_logOutLbl.setBackground(Color.white);
                 lbl_logout.setBackground(Color.white);
                 lbl_logout.setForeground(Color.black);
+                
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
                 
                 break;
             case 5:
@@ -769,6 +855,10 @@ public class DashBoard extends javax.swing.JFrame {
                 lbl_logout.setBackground(Color.white);
                 lbl_logout.setForeground(Color.black);
                 
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
+                
                 break;
             case 6:
                 panel_manageRoomsLbl.setBackground(Color.white);
@@ -803,6 +893,10 @@ public class DashBoard extends javax.swing.JFrame {
                 lbl_logout.setBackground(Color.white);
                 lbl_logout.setForeground(Color.black);
                 
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
+                
                 break;
             case 7:
                 panel_manageRoomsLbl.setBackground(Color.white);
@@ -836,6 +930,48 @@ public class DashBoard extends javax.swing.JFrame {
                 panel_logOutLbl.setBackground(Color.black);
                 lbl_logout.setBackground(Color.black);
                 lbl_logout.setForeground(Color.white);
+                
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
+                
+                break;
+            case 8:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
+                
+                panel_viewFinanceLbl.setBackground(Color.black);
+                lbl_viewFinance.setBackground(Color.black);
+                lbl_viewFinance.setForeground(Color.white);
                 
                 break;
         }
@@ -877,6 +1013,8 @@ public class DashBoard extends javax.swing.JFrame {
         lbl_managePackage = new javax.swing.JLabel();
         panel_managePBookingLbl = new javax.swing.JPanel();
         lbl_managePackageBooking = new javax.swing.JLabel();
+        panel_viewFinanceLbl = new javax.swing.JPanel();
+        lbl_viewFinance = new javax.swing.JLabel();
         TabbedPane = new javax.swing.JTabbedPane();
         panel_adminHome = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1058,6 +1196,12 @@ public class DashBoard extends javax.swing.JFrame {
         btn_cancelPBooking = new javax.swing.JButton();
         btn_clearPBookingFields = new javax.swing.JButton();
         btn_markAsPReserve = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        table_finance = new javax.swing.JTable();
+        btn_viewAllFinance = new javax.swing.JButton();
+        cbox_months = new javax.swing.JComboBox<>();
+        jLabel69 = new javax.swing.JLabel();
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
@@ -1265,7 +1409,7 @@ public class DashBoard extends javax.swing.JFrame {
             .addGroup(panel_logOutLblLayout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addComponent(lbl_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         panel_logOutLblLayout.setVerticalGroup(
             panel_logOutLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1337,6 +1481,37 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panel_viewFinanceLbl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_viewFinanceLbl.setForeground(new java.awt.Color(0, 0, 0));
+
+        lbl_viewFinance.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_viewFinance.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_viewFinance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_viewFinance.setText("View Finance");
+        lbl_viewFinance.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_viewFinance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_viewFinanceMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_viewFinanceLblLayout = new javax.swing.GroupLayout(panel_viewFinanceLbl);
+        panel_viewFinanceLbl.setLayout(panel_viewFinanceLblLayout);
+        panel_viewFinanceLblLayout.setHorizontalGroup(
+            panel_viewFinanceLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_viewFinanceLblLayout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(lbl_viewFinance, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_viewFinanceLblLayout.setVerticalGroup(
+            panel_viewFinanceLblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_viewFinanceLblLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_viewFinance, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1364,6 +1539,7 @@ public class DashBoard extends javax.swing.JFrame {
                         .addGap(0, 60, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(panel_viewFinanceLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1391,11 +1567,13 @@ public class DashBoard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_manageStaffLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panel_viewFinanceLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_logOutLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 810));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 880));
 
         panel_adminHome.setBackground(new java.awt.Color(255, 255, 255));
         panel_adminHome.setForeground(new java.awt.Color(0, 0, 0));
@@ -1423,9 +1601,9 @@ public class DashBoard extends javax.swing.JFrame {
         panel_adminHomeLayout.setVerticalGroup(
             panel_adminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_adminHomeLayout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+                .addContainerGap(280, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(202, 202, 202))
+                .addGap(190, 190, 190))
         );
 
         TabbedPane.addTab("tab1", panel_adminHome);
@@ -1630,7 +1808,7 @@ public class DashBoard extends javax.swing.JFrame {
         panel_manageRoomsLayout.setVerticalGroup(
             panel_manageRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRoomsLayout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap(102, Short.MAX_VALUE)
                 .addGroup(panel_manageRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageRoomsLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1863,7 +2041,7 @@ public class DashBoard extends javax.swing.JFrame {
         panel_managePackagesLayout.setVerticalGroup(
             panel_managePackagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_managePackagesLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(96, Short.MAX_VALUE)
                 .addGroup(panel_managePackagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panel_managePackagesLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -2029,7 +2207,7 @@ public class DashBoard extends javax.swing.JFrame {
         panel_manageBookingsLayout.setVerticalGroup(
             panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_manageBookingsLayout.createSequentialGroup()
-                .addContainerGap(220, Short.MAX_VALUE)
+                .addContainerGap(230, Short.MAX_VALUE)
                 .addGroup(panel_manageBookingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_manageBookingsLayout.createSequentialGroup()
                         .addComponent(btn_cancelBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2320,7 +2498,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbox_roomBeds, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))
+                        .addComponent(cbox_roomBeds, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
@@ -2330,7 +2508,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbox_roomNos, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))
+                        .addComponent(cbox_roomNos, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_guestCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckInLayout.createSequentialGroup()
@@ -2635,7 +2813,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(txt_roomNoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_searchRoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panel_guestCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_guestCheckOutLayout.createSequentialGroup()
@@ -2959,7 +3137,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btn_updateStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_removeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_generateStaffID, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         TabbedPane.addTab("tab7", panel_manageStaffacc);
@@ -3113,7 +3291,83 @@ public class DashBoard extends javax.swing.JFrame {
 
         TabbedPane.addTab("tab8", panel_managePBooking);
 
-        jPanel1.add(TabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, -34, 1030, 840));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
+
+        table_finance.setBackground(new java.awt.Color(255, 255, 255));
+        table_finance.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        table_finance.setForeground(new java.awt.Color(0, 0, 0));
+        table_finance.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        table_finance.setSelectionBackground(new java.awt.Color(5, 124, 124));
+        table_finance.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane6.setViewportView(table_finance);
+
+        btn_viewAllFinance.setBackground(new java.awt.Color(5, 124, 124));
+        btn_viewAllFinance.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_viewAllFinance.setForeground(new java.awt.Color(255, 255, 255));
+        btn_viewAllFinance.setText("All Data");
+        btn_viewAllFinance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_viewAllFinanceActionPerformed(evt);
+            }
+        });
+
+        cbox_months.setBackground(new java.awt.Color(255, 255, 255));
+        cbox_months.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbox_months.setForeground(new java.awt.Color(0, 0, 0));
+        cbox_months.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        cbox_months.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbox_monthsItemStateChanged(evt);
+            }
+        });
+
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel69.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel69.setText("View Monthly");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_viewAllFinance, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(cbox_months, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(172, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_viewAllFinance, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(cbox_months)
+                    .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(206, 206, 206))
+        );
+
+        TabbedPane.addTab("tab9", jPanel3);
+
+        jPanel1.add(TabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, -34, 1030, 860));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -4439,6 +4693,24 @@ public class DashBoard extends javax.swing.JFrame {
         clearPBookingData();
     }//GEN-LAST:event_btn_clearPBookingFieldsActionPerformed
 
+    private void lbl_viewFinanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_viewFinanceMouseClicked
+        // TODO add your handling code here:
+        TabbedPane.setSelectedIndex(8);
+        DisplayFinance();
+        changeDesignOfClickedLabel(8);
+    }//GEN-LAST:event_lbl_viewFinanceMouseClicked
+
+    private void btn_viewAllFinanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewAllFinanceActionPerformed
+        // TODO add your handling code here:
+        DisplayFinance();
+    }//GEN-LAST:event_btn_viewAllFinanceActionPerformed
+
+    private void cbox_monthsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbox_monthsItemStateChanged
+        // TODO add your handling code here:
+        String selectedMonth = cbox_months.getSelectedItem().toString();
+        DisplayFinanceByMonth(selectedMonth);
+    }//GEN-LAST:event_cbox_monthsItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -4503,6 +4775,8 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btn_updatePackage;
     private javax.swing.JButton btn_updateRoom;
     private javax.swing.JButton btn_updateStaff;
+    private javax.swing.JButton btn_viewAllFinance;
+    private javax.swing.JComboBox<String> cbox_months;
     private javax.swing.JComboBox<String> cbox_roomBeds;
     private javax.swing.JComboBox<String> cbox_roomDecs;
     private javax.swing.JComboBox<String> cbox_roomNos;
@@ -4573,16 +4847,19 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_guestCheckin;
@@ -4595,6 +4872,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_manageStaffacc;
     private javax.swing.JLabel lbl_packageImage;
     private javax.swing.JLabel lbl_roomImage;
+    private javax.swing.JLabel lbl_viewFinance;
     private javax.swing.JPanel panel_GcheckIn;
     private javax.swing.JPanel panel_GcheckOut;
     private javax.swing.JPanel panel_adminHome;
@@ -4611,6 +4889,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel panel_manageRoomsLbl;
     private javax.swing.JPanel panel_manageStaffLbl;
     private javax.swing.JPanel panel_manageStaffacc;
+    private javax.swing.JPanel panel_viewFinanceLbl;
     private javax.swing.JRadioButton rbtn_female;
     private javax.swing.JRadioButton rbtn_male;
     private javax.swing.JRadioButton rbtn_manager;
@@ -4621,6 +4900,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JSpinner spin_bedCount;
     private javax.swing.ButtonGroup staffGenderRbtnGroup;
     private javax.swing.ButtonGroup staffRoleRbtnGroup;
+    private javax.swing.JTable table_finance;
     private javax.swing.JTable table_packages;
     private javax.swing.JTable table_rReservedData;
     private javax.swing.JTable table_staffAcc;
