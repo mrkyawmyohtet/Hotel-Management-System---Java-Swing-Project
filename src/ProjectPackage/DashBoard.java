@@ -150,7 +150,12 @@ public class DashBoard extends javax.swing.JFrame {
     public void DisplayFinance(){
         try{
             Connection con = connect();
-            String sql = "select * from finance";
+            String sql = "SELECT receipts.receipt_id, SUM(finance.Amount) AS total_amount " +
+                     "FROM receipts " +
+                     "INNER JOIN finance ON receipts.receipt_id = finance.receipt_id " +
+                     "LEFT JOIN r_reserved_data ON receipts.r_reserved_id = r_reserved_data.r_reserved_id " +
+                     "LEFT JOIN p_reserved_data ON receipts.p_reserved_id = p_reserved_data.p_reserved_id " +
+                     "GROUP BY receipts.receipt_id";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             table_finance.setModel(DbUtils.resultSetToTableModel(rs));
@@ -210,6 +215,21 @@ public class DashBoard extends javax.swing.JFrame {
         }
         catch(Exception e){
             e.printStackTrace();
+        }
+    }
+    
+    public void getTotalAmount(){
+        int count = table_finance.getRowCount();
+        float totalAmount = 0;
+        if(count == 0){
+            lbl_totalAmount.setText("Total Amount: 0");
+        }
+        else{
+            for(int i = 0; i < count; i++){
+                float amount = Float.parseFloat(table_finance.getValueAt(i, 1).toString());
+                totalAmount += amount;
+            }
+            lbl_totalAmount.setText("Total Amount: " + totalAmount + " Ks");
         }
     }
 
@@ -911,9 +931,9 @@ public class DashBoard extends javax.swing.JFrame {
                 lbl_managePackage.setBackground(Color.white);
                 lbl_managePackage.setForeground(Color.black);
 
-                panel_managePBookingLbl.setBackground(Color.white);
-                lbl_managePackageBooking.setBackground(Color.white);
-                lbl_managePackageBooking.setForeground(Color.black);
+                panel_managePBookingLbl.setBackground(Color.black);
+                lbl_managePackageBooking.setBackground(Color.black);
+                lbl_managePackageBooking.setForeground(Color.white);
 
                 panel_GcheckIn.setBackground(Color.white);
                 lbl_guestCheckin.setBackground(Color.white);
@@ -927,9 +947,9 @@ public class DashBoard extends javax.swing.JFrame {
                 lbl_manageStaffacc.setBackground(Color.white);
                 lbl_manageStaffacc.setForeground(Color.black);
 
-                panel_logOutLbl.setBackground(Color.black);
-                lbl_logout.setBackground(Color.black);
-                lbl_logout.setForeground(Color.white);
+                panel_logOutLbl.setBackground(Color.white);
+                lbl_logout.setBackground(Color.white);
+                lbl_logout.setForeground(Color.black);
                 
                 panel_viewFinanceLbl.setBackground(Color.white);
                 lbl_viewFinance.setBackground(Color.white);
@@ -972,6 +992,44 @@ public class DashBoard extends javax.swing.JFrame {
                 panel_viewFinanceLbl.setBackground(Color.black);
                 lbl_viewFinance.setBackground(Color.black);
                 lbl_viewFinance.setForeground(Color.white);
+                
+                break;
+            case 9:
+                panel_manageRoomsLbl.setBackground(Color.white);
+                lbl_manageRooms.setBackground(Color.white);
+                lbl_manageRooms.setForeground(Color.black);
+
+                panel_manageRBookingLbl.setBackground(Color.white);
+                lbl_manageRoomBooking.setBackground(Color.white);
+                lbl_manageRoomBooking.setForeground(Color.black);
+
+                panel_managePackLbl.setBackground(Color.white);
+                lbl_managePackage.setBackground(Color.white);
+                lbl_managePackage.setForeground(Color.black);
+
+                panel_managePBookingLbl.setBackground(Color.white);
+                lbl_managePackageBooking.setBackground(Color.white);
+                lbl_managePackageBooking.setForeground(Color.black);
+
+                panel_GcheckIn.setBackground(Color.white);
+                lbl_guestCheckin.setBackground(Color.white);
+                lbl_guestCheckin.setForeground(Color.black);
+
+                panel_GcheckOut.setBackground(Color.white);
+                lbl_guestCheckout.setBackground(Color.white);
+                lbl_guestCheckout.setForeground(Color.black);
+
+                panel_manageStaffLbl.setBackground(Color.white);
+                lbl_manageStaffacc.setBackground(Color.white);
+                lbl_manageStaffacc.setForeground(Color.black);
+
+                panel_logOutLbl.setBackground(Color.black);
+                lbl_logout.setBackground(Color.black);
+                lbl_logout.setForeground(Color.white);
+                
+                panel_viewFinanceLbl.setBackground(Color.white);
+                lbl_viewFinance.setBackground(Color.white);
+                lbl_viewFinance.setForeground(Color.black);
                 
                 break;
         }
@@ -1202,6 +1260,7 @@ public class DashBoard extends javax.swing.JFrame {
         btn_viewAllFinance = new javax.swing.JButton();
         cbox_months = new javax.swing.JComboBox<>();
         jLabel69 = new javax.swing.JLabel();
+        lbl_totalAmount = new javax.swing.JLabel();
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
@@ -2562,7 +2621,7 @@ public class DashBoard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         table_rReservedData.setSelectionBackground(new java.awt.Color(5, 124, 124));
@@ -3334,6 +3393,11 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel69.setText("View Monthly");
 
+        lbl_totalAmount.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_totalAmount.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_totalAmount.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_totalAmount.setText("Total Amount:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -3342,20 +3406,24 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(btn_viewAllFinance, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(90, 90, 90)
                         .addComponent(cbox_months, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146))))
+                        .addGap(146, 146, 146))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(172, Short.MAX_VALUE)
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(lbl_totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -4014,11 +4082,20 @@ public class DashBoard extends javax.swing.JFrame {
                     ps2.setFloat(6, Float.parseFloat(txt_totalCost.getText()));
                     ps2.setString(7, "Full Paid");
                     ps2.execute();
-
+                    
+                    String sql8 = "select * from receipts where receipt_id = ?";
+                    PreparedStatement ps8 = con.prepareStatement(sql8);
+                    ps8.setString(1, receiptId);
+                    ResultSet rs8 = ps8.executeQuery();
+                    float cost = 0;
+                    while(rs8.next()){
+                        cost += Float.parseFloat(rs8.getString("cost"));
+                    }
+                    
                     String sql3 = "insert into finance (receipt_id, Amount) values (?, ?)";
                     PreparedStatement ps3 = con.prepareStatement(sql3);
                     ps3.setString(1, receiptId);
-                    ps3.setFloat(2, Float.parseFloat(txt_totalCost.getText()));
+                    ps3.setFloat(2, cost);
                     ps3.execute();
                     
                     clearCheckOutFields();
@@ -4297,7 +4374,7 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void lbl_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoutMouseClicked
         // TODO add your handling code here:
-        changeDesignOfClickedLabel(7);
+        changeDesignOfClickedLabel(9);
         int result = JOptionPane.showConfirmDialog(null, "Confirm Logout?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.YES_OPTION){
             txt_staffid.setText("Staff id");
@@ -4697,18 +4774,21 @@ public class DashBoard extends javax.swing.JFrame {
         // TODO add your handling code here:
         TabbedPane.setSelectedIndex(8);
         DisplayFinance();
+        getTotalAmount();
         changeDesignOfClickedLabel(8);
     }//GEN-LAST:event_lbl_viewFinanceMouseClicked
 
     private void btn_viewAllFinanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewAllFinanceActionPerformed
         // TODO add your handling code here:
         DisplayFinance();
+        getTotalAmount();
     }//GEN-LAST:event_btn_viewAllFinanceActionPerformed
 
     private void cbox_monthsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbox_monthsItemStateChanged
         // TODO add your handling code here:
         String selectedMonth = cbox_months.getSelectedItem().toString();
         DisplayFinanceByMonth(selectedMonth);
+        getTotalAmount();
     }//GEN-LAST:event_cbox_monthsItemStateChanged
 
     /**
@@ -4872,6 +4952,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_manageStaffacc;
     private javax.swing.JLabel lbl_packageImage;
     private javax.swing.JLabel lbl_roomImage;
+    private javax.swing.JLabel lbl_totalAmount;
     private javax.swing.JLabel lbl_viewFinance;
     private javax.swing.JPanel panel_GcheckIn;
     private javax.swing.JPanel panel_GcheckOut;
